@@ -1,5 +1,6 @@
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import React from "react";
+import * as Animatable from "react-native-animatable";
 
 export default function SignIn() {
   return (
@@ -8,3 +9,7 @@ export default function SignIn() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {},
+});
