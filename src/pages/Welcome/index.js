@@ -1,9 +1,11 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import React from "react";
-
+import { useNavigation } from "@react-navigation/native";
 import * as Animatable from "react-native-animatable";
 
 export default function Welcome() {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <View style={styles.containerLogo}>
@@ -23,7 +25,10 @@ export default function Welcome() {
           Encontra mesas e aventuras a qualquer momento!
         </Text>
         <Text style={styles.text}>Faça login para começar sua jornada</Text>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate("SignIn")}
+        >
           <Text style={styles.buttonText}>Entrar</Text>
         </TouchableOpacity>
       </Animatable.View>
