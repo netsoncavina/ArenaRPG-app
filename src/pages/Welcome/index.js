@@ -22,7 +22,7 @@ export default function Welcome() {
         style={styles.containerForm}
       >
         <Text style={styles.title}>
-          Encontra mesas e aventuras a qualquer momento!
+          Encontre mesas e aventuras a qualquer momento!
         </Text>
         <Text style={styles.text}>Faça login para começar sua jornada</Text>
         <TouchableOpacity
