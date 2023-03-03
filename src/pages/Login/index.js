@@ -7,8 +7,11 @@ import {
 } from "react-native";
 import React from "react";
 import * as Animatable from "react-native-animatable";
+import { useNavigation } from "@react-navigation/native";
 
 export default function SignIn() {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <Animatable.View
@@ -29,7 +32,10 @@ export default function SignIn() {
           <Text style={styles.buttonText}>Entrar</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.buttonRegister}>
+        <TouchableOpacity
+          style={styles.buttonRegister}
+          onPress={() => navigation.navigate("SignUp")}
+        >
           <Text style={styles.registerText}>
             Não possui uma conta? Cadastre-se
           </Text>
