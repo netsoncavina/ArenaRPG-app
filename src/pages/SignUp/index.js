@@ -5,10 +5,53 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import * as Animatable from "react-native-animatable";
-
+import axios from "axios";
 export default function SingUp() {
+  const [userData, setUserData] = useState({
+    name: "",
+    nickName: "",
+    email: "",
+    password: "",
+  });
+
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const createUser = async (userData) => {
+    let name = userData.name;
+    let nickName = userData.nickName;
+    let email = userData.email;
+    let password = userData.password;
+    try {
+      const response = await fetch("http://192.168.15.18:5000/users", {
+        method: "POST",
+        body: JSON.stringify({
+          name,
+          nickName,
+          email,
+          password,
+        }),
+      });
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleSignUp = () => {
+    // console.log(JSON.stringify(userData));
+    console.log("Clicou no botão de cadastro");
+    console.log(userData);
+    if (userData.password !== confirmPassword) {
+      alert("As senhas não conferem!");
+      return;
+    }
+    createUser(userData);
+    console.log("Usuário cadastrado com sucesso!");
+  };
+
   return (
     <View style={styles.container}>
       <Animatable.View
@@ -20,19 +63,36 @@ export default function SingUp() {
       </Animatable.View>
       <Animatable.View animation="fadeInUp" style={styles.containerForm}>
         <Text style={styles.label}>Nome</Text>
-        <TextInput style={styles.input} placeholder="Digite seu nome..." />
+        <TextInput
+          style={styles.input}
+          placeholder="Digite seu nome..."
+          onChangeText={(value) => setUserData({ ...userData, name: value })}
+        />
 
         <Text style={styles.label}>Apelido</Text>
-        <TextInput style={styles.input} placeholder="Digite seu apelido..." />
+        <TextInput
+          style={styles.input}
+          placeholder="Digite seu apelido..."
+          onChangeText={(value) =>
+            setUserData({ ...userData, nickName: value })
+          }
+        />
 
         <Text style={styles.label}>E-mail</Text>
-        <TextInput style={styles.input} placeholder="Digite seu email..." />
+        <TextInput
+          style={styles.input}
+          placeholder="Digite seu email..."
+          onChangeText={(value) => setUserData({ ...userData, email: value })}
+        />
 
         <Text style={styles.label}>Senha</Text>
         <TextInput
           style={styles.password}
           placeholder="Digite sua senha..."
           secureTextEntry={true}
+          onChangeText={(value) =>
+            setUserData({ ...userData, password: value })
+          }
         />
 
         <Text style={styles.label}>Confirme sua senha</Text>
@@ -40,9 +100,10 @@ export default function SingUp() {
           style={styles.password}
           placeholder="Confirme sua senha..."
           secureTextEntry={true}
+          onChangeText={(value) => setConfirmPassword(value)}
         />
 
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={handleSignUp}>
           <Text style={styles.buttonText}>Registrar</Text>
         </TouchableOpacity>
       </Animatable.View>
