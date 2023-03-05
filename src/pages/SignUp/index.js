@@ -26,11 +26,14 @@ export default function SingUp() {
     try {
       const response = await fetch("http://192.168.15.18:5000/users", {
         method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({
-          name,
-          nickName,
-          email,
-          password,
+          name: name,
+          nickName: nickName,
+          email: email,
+          password: password,
         }),
       });
       const data = await response.json();
@@ -41,8 +44,6 @@ export default function SingUp() {
   };
 
   const handleSignUp = () => {
-    // console.log(JSON.stringify(userData));
-    console.log("Clicou no botão de cadastro");
     console.log(userData);
     if (userData.password !== confirmPassword) {
       alert("As senhas não conferem!");
