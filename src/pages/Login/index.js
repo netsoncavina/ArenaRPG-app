@@ -16,23 +16,23 @@ export default function SignIn() {
     password: "",
   });
 
-  const handleSignIn = async () => {
-    console.log("Clicou no botão de login");
-    console.log(userData);
+  const login = async () => {
+    let nickName = userData.nickName;
+    let password = userData.password;
+    console.log(nickName, password);
     try {
-      const response = await fetch(
-        `http://192.168.15.18:5000/users/user/${userData.nickName}`,
-        {
-          method: "GET",
-        }
-      );
+      const response = await fetch("http://192.168.15.18:5000/users/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          nickName: nickName,
+          password: password,
+        }),
+      });
       const data = await response.json();
-      if (data[0].password === userData.password) {
-        console.log("Login efetuado com sucesso!");
-      } else {
-        console.log("Senha incorreta!");
-      }
-      console.log(`Entrada: ${userData.password} | Saída: ${data[0].password}`);
+      console.log(data);
     } catch (error) {
       console.log(error);
     }
@@ -67,7 +67,7 @@ export default function SignIn() {
           }
         />
 
-        <TouchableOpacity style={styles.button} onPress={handleSignIn}>
+        <TouchableOpacity style={styles.button} onPress={login}>
           <Text style={styles.buttonText}>Entrar</Text>
         </TouchableOpacity>
 
