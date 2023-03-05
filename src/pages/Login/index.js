@@ -12,7 +12,7 @@ import { useNavigation } from "@react-navigation/native";
 export default function SignIn() {
   const navigation = useNavigation();
   const [userData, setUserData] = useState({
-    name: "",
+    nickName: "",
     password: "",
   });
 
@@ -21,7 +21,7 @@ export default function SignIn() {
     console.log(userData);
     try {
       const response = await fetch(
-        `http://192.168.15.18:5000/users/user/${userData.name}`,
+        `http://192.168.15.18:5000/users/user/${userData.nickName}`,
         {
           method: "GET",
         }
@@ -48,11 +48,13 @@ export default function SignIn() {
         <Text style={styles.message}>Bem-vindo aventureiro!</Text>
       </Animatable.View>
       <Animatable.View animation="fadeInUp" style={styles.containerForm}>
-        <Text style={styles.label}>E-mail</Text>
+        <Text style={styles.label}>Apelido</Text>
         <TextInput
           style={styles.input}
-          placeholder="Digite seu email..."
-          onChangeText={(value) => setUserData({ ...userData, name: value })}
+          placeholder="Digite seu apelido..."
+          onChangeText={(value) =>
+            setUserData({ ...userData, nickName: value })
+          }
         />
 
         <Text style={styles.label}>Senha</Text>
