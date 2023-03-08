@@ -4,6 +4,7 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
+  ScrollView,
 } from "react-native";
 import React, { useState } from "react";
 import * as Animatable from "react-native-animatable";
@@ -54,7 +55,10 @@ export default function SingUp() {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView
+      contentContainerStyle={{ flexGrow: 1 }}
+      style={styles.container}
+    >
       <Animatable.View
         animation="fadeInLeft"
         delay={500}
@@ -108,7 +112,7 @@ export default function SingUp() {
           <Text style={styles.buttonText}>Registrar</Text>
         </TouchableOpacity>
       </Animatable.View>
-    </View>
+    </ScrollView>
   );
 }
 
@@ -132,6 +136,7 @@ const styles = StyleSheet.create({
     flex: 1,
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
+    height: "100%",
     paddingStart: "5%",
     paddingEnd: "5%",
   },
