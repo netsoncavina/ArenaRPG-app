@@ -1,8 +1,6 @@
 import React from "react";
-import { View, Text } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
+import { Text } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-// import Icon from "react-native-ionicons";
 import { Ionicons } from "@expo/vector-icons";
 
 // Screens
@@ -33,16 +31,25 @@ export default function Main() {
           let routeName = route.name;
           if (routeName === "Home") {
             color = focused ? "#b02b2e" : "white";
-            return <Text style={{ color: color }}>Home</Text>;
+            return <Text style={{ color: color, paddingBottom: 7 }}>Home</Text>;
           } else if (routeName === "Create") {
             color = focused ? "#b02b2e" : "white";
-            return <Text style={{ color: color }}>Create</Text>;
+            return (
+              <Text style={{ color: color, paddingBottom: 7 }}>Create</Text>
+            );
           } else if (routeName === "Settings") {
             color = focused ? "#b02b2e" : "white";
-            return <Text style={{ color: color }}>Setting</Text>;
+            return (
+              <Text style={{ color: color, paddingBottom: 7 }}>Setting</Text>
+            );
           }
         },
         headerShown: false,
+        tabBarStyle: {
+          height: 70,
+          backgroundColor: "#1e1e1e",
+          padding: 10,
+        },
       })}
     >
       <Tab.Screen name="Home" component={HomeScreen} />
