@@ -1,8 +1,20 @@
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Text, StyleSheet, Image } from "react-native";
+import { useFonts } from "expo-font";
 import SelectDropdown from "react-native-select-dropdown";
+import icons from "./utils";
 
 const NavBar = () => {
+  const [selectedIcon, setSelectedIcon] = useState(
+    icons[Math.floor(Math.random() * icons.length)]
+  );
+  const [loaded] = useFonts({
+    Tormenta20x: require("../../assets/fonts/Tormenta20x.ttf"),
+  });
+  if (!loaded) {
+    return null;
+  }
+
   const options = ["Inicio", "Mesas", "Jogadores", "Off Topic"];
 
   return (
@@ -19,7 +31,7 @@ const NavBar = () => {
         rowTextStyle={{ color: "white" }}
         data={options}
         onSelect={(selectedItem, index) => {
-          console.log(selectedItem, index);
+          //   console.log(selectedItem, index);
         }}
         buttonTextAfterSelection={(selectedItem, index) => {
           // text represented after item is selected
@@ -32,6 +44,21 @@ const NavBar = () => {
           return item;
         }}
       />
+      <Text style={{ fontFamily: "Tormenta20x", color: "white", fontSize: 20 }}>
+        Heróis do RPG
+      </Text>
+      <View>
+        <Image
+          source={selectedIcon.image}
+          style={{
+            width: 50,
+            height: 50,
+            borderRadius: 30,
+            borderColor: "#1e1e1e",
+            borderWidth: 2,
+          }}
+        />
+      </View>
     </View>
   );
 };
@@ -47,7 +74,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 0.2,
   },
   dropdown: {
-    width: 80,
+    width: 110,
     height: 30,
     backgroundColor: "#1e1e1e66",
     borderRadius: 5,
