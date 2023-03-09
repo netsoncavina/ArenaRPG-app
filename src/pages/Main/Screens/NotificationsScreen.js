@@ -1,14 +1,14 @@
 import { View, Text } from "react-native";
 import React from "react";
 
-const SettingsScreen = () => {
+const NotificationsScreen = () => {
   return (
     <View>
       <Text onPress={() => navigation.navigate("Settings")}>
-        SettingsScreen
+        NotificationsScreen
       </Text>
     </View>
   );
 };
 
-export default SettingsScreen;
+export default NotificationsScreen;
