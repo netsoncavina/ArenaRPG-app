@@ -19,7 +19,7 @@ export default function SignIn() {
   const login = async () => {
     let nickName = userData.nickName;
     let password = userData.password;
-    console.log(nickName, password);
+    // console.log(nickName, password);
     try {
       const response = await fetch("http://192.168.15.18:5000/users/login", {
         method: "POST",
@@ -31,8 +31,14 @@ export default function SignIn() {
           password: password,
         }),
       });
+      if (response.status != 200) {
+        alert("Usuário ou senha inválidos");
+        return;
+      }
       const data = await response.json();
       console.log(data);
+
+      navigation.navigate("Main");
     } catch (error) {
       console.log(error);
     }
