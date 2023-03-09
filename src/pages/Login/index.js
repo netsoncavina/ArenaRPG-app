@@ -8,6 +8,7 @@ import {
 import React, { useState } from "react";
 import * as Animatable from "react-native-animatable";
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function SignIn() {
   const navigation = useNavigation();
@@ -15,6 +16,16 @@ export default function SignIn() {
     nickName: "",
     password: "",
   });
+
+  const storeData = async (value) => {
+    try {
+      const jsonValue = JSON.stringify(value);
+      await AsyncStorage.setItem("@user_data", jsonValue);
+      console.log("User saved");
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   const login = async () => {
     let nickName = userData.nickName;
@@ -37,6 +48,7 @@ export default function SignIn() {
       }
       const data = await response.json();
       console.log(data);
+      storeData(data);
 
       navigation.navigate("Main");
     } catch (error) {
