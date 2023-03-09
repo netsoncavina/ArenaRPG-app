@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import { useFonts } from "expo-font";
 import SelectDropdown from "react-native-select-dropdown";
+import * as Animatable from "react-native-animatable";
 import icons from "./utils";
 
-const NavBar = () => {
+const NavBar = ({ animation }) => {
   const [selectedIcon, setSelectedIcon] = useState(
     icons[Math.floor(Math.random() * icons.length)]
   );
@@ -18,7 +19,11 @@ const NavBar = () => {
   const options = ["Inicio", "Mesas", "Jogadores", "Off Topic"];
 
   return (
-    <View style={styles.container}>
+    <Animatable.View
+      style={styles.container}
+      delay={200}
+      animation="fadeInDown"
+    >
       <SelectDropdown
         defaultButtonText="Inicio"
         buttonStyle={styles.dropdown}
@@ -48,7 +53,7 @@ const NavBar = () => {
         Heróis do RPG
       </Text>
       <View>
-        <Image
+        <Animatable.Image
           source={selectedIcon.image}
           style={{
             width: 50,
@@ -57,9 +62,11 @@ const NavBar = () => {
             borderColor: "#1e1e1e",
             borderWidth: 2,
           }}
+          animation="zoomIn"
+          delay={800}
         />
       </View>
-    </View>
+    </Animatable.View>
   );
 };
 
