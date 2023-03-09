@@ -5,7 +5,6 @@ import NavBar from "../../../components/NavBar";
 const CreateScreen = () => {
   return (
     <View>
-      <NavBar />
       <View style={styles.container}>
         <Text onPress={() => navigation.navigate("NewPost")}>CreateScreen</Text>
       </View>

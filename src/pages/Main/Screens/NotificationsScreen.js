@@ -5,7 +5,6 @@ import NavBar from "../../../components/NavBar";
 const NotificationsScreen = () => {
   return (
     <View>
-      <NavBar />
       <View style={styles.container}>
         <Text onPress={() => navigation.navigate("Settings")}>
           NotificationsScreen
