@@ -6,7 +6,7 @@ import { Ionicons } from "@expo/vector-icons";
 // Screens
 import HomeScreen from "./Screens/HomeScreen";
 import CreateScreen from "./Screens/CreateScreen";
-import SettingsScreen from "./Screens/SettingsScreen";
+import NotificationsScreen from "./Screens/NotificationsScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -22,8 +22,8 @@ export default function Main() {
             iconName = focused ? "home" : "home-outline";
           } else if (routeName === "Create") {
             iconName = focused ? "add-circle" : "add-circle-outline";
-          } else if (routeName === "Settings") {
-            iconName = focused ? "settings" : "settings-outline";
+          } else if (routeName === "Notifications") {
+            iconName = focused ? "notifications" : "md-notifications-outline";
           }
           return <Ionicons name={iconName} size={size} color={"#b02b2e"} />;
         },
@@ -37,10 +37,12 @@ export default function Main() {
             return (
               <Text style={{ color: color, paddingBottom: 7 }}>Create</Text>
             );
-          } else if (routeName === "Settings") {
+          } else if (routeName === "Notifications") {
             color = focused ? "#b02b2e" : "white";
             return (
-              <Text style={{ color: color, paddingBottom: 7 }}>Setting</Text>
+              <Text style={{ color: color, paddingBottom: 7 }}>
+                Notifications
+              </Text>
             );
           }
         },
@@ -54,7 +56,7 @@ export default function Main() {
     >
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Create" component={CreateScreen} />
-      <Tab.Screen name="Settings" component={SettingsScreen} />
+      <Tab.Screen name="Notifications" component={NotificationsScreen} />
     </Tab.Navigator>
   );
 }
