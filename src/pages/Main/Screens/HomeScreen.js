@@ -25,9 +25,6 @@ const HomeScreen = ({ navigation, name }) => {
   return (
     <View>
       <View style={styles.container}>
-        {/* <Text onPress={() => navigation.navigate("Home")}>
-          Olá {userData.nickName}
-        </Text> */}
         <Posts />
       </View>
     </View>
@@ -36,7 +33,7 @@ const HomeScreen = ({ navigation, name }) => {
 
 const styles = StyleSheet.create({
   container: {
-    height: "90%",
+    height: "100%",
     alignItems: "center",
     // justifyContent: "center",
   },
