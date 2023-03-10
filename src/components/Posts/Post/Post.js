@@ -19,8 +19,15 @@ const Post = ({ title, author, content, system, type, image }) => {
       <View>
         <Image source={{ uri: image }} style={styles.image} />
         <View style={styles.authorInfo}>
-          <Ionicons name="person" size={24} color="white" />
-          <Text style={{ color: "#fff", margin: 3 }}>{author}</Text>
+          <Ionicons
+            name="person"
+            size={24}
+            color="white"
+            style={{ marginLeft: 5 }}
+          />
+          <Text style={{ color: "#fff", marginRight: 7, marginLeft: 4 }}>
+            {author}
+          </Text>
         </View>
         <View style={styles.icons}>
           <Ionicons
@@ -89,13 +96,13 @@ const styles = StyleSheet.create({
   authorInfo: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-start",
     margin: 3,
     position: "absolute",
     top: 10,
     left: 10,
-    height: 30,
-    width: 120,
+    height: 35,
+    // width: 90,
     backgroundColor: "rgba(0,0,0,0.6)",
     borderRadius: 15,
   },
