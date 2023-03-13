@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, ScrollView, Text } from "react-native";
+import { StyleSheet, ScrollView, Text } from "react-native";
 import Post from "./Post/Post";
 
 const Posts = () => {
@@ -37,6 +37,7 @@ const Posts = () => {
                 content={post.content}
                 system={post.system}
                 type={post.type}
+                key={post._id}
               />
             );
           })
