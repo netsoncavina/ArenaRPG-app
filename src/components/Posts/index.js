@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, ScrollView, Text } from "react-native";
+import { StyleSheet, ScrollView, Text, ActivityIndicator } from "react-native";
 import Post from "./Post/Post";
 
 const Posts = () => {
@@ -10,8 +10,10 @@ const Posts = () => {
     fetch("http://192.168.15.18:5000/posts")
       .then((response) => response.json())
       .then((data) => {
-        setPosts(data);
-        setLoading(false);
+        setTimeout(() => {
+          setPosts(data);
+          setLoading(false);
+        }, 500);
       });
   }, []);
 
@@ -26,7 +28,7 @@ const Posts = () => {
         style={styles.container}
       >
         {isLoading ? (
-          <Text>Carregando...</Text>
+          <ActivityIndicator size="large" color="#b02b2e" />
         ) : (
           posts.map((post) => {
             return (
