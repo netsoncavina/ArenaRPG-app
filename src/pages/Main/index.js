@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { Text } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
@@ -12,9 +12,10 @@ import NavBar from "../../components/NavBar";
 const Tab = createBottomTabNavigator();
 
 export default function Main() {
+  const [filter, setFilter] = useState("Inicio");
   return (
     <>
-      <NavBar />
+      <NavBar filter={filter} setFilter={setFilter}/>
       <Tab.Navigator
         initialRouteName="Home"
         screenOptions={({ route }) => ({
@@ -59,7 +60,7 @@ export default function Main() {
           },
         })}
       >
-        <Tab.Screen name="Home" children={() => <HomeScreen />} />
+        <Tab.Screen name="Home" children={() => <HomeScreen filter={filter}/>} />
         <Tab.Screen name="Create" component={CreateScreen} />
         <Tab.Screen name="Notifications" component={NotificationsScreen} />
       </Tab.Navigator>

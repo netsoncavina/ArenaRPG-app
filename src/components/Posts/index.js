@@ -2,12 +2,23 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, ScrollView, Text, ActivityIndicator } from "react-native";
 import Post from "./Post/Post";
 
-const Posts = () => {
+const Posts = ({ filter }) => {
   const [posts, setPosts] = useState([]);
   const [isLoading, setLoading] = useState(true);
-
   useEffect(() => {
-    fetch("http://192.168.15.18:5000/posts")
+    let url;
+    setLoading(true);
+    if (filter == "Inicio") {
+      url = "http://192.168.15.18:5000/posts";
+    } else if (filter == "Mesas") {
+      url = "http://192.168.15.18:5000/posts/post/Mesa";
+    } else if (filter == "Jogadores") {
+      url = "http://192.168.15.18:5000/posts/post/Jogadores";
+    } else if (filter == "Off Topic") {
+      url = "http://192.168.15.18:5000/posts/post/Off Topic";
+    }
+
+    fetch(url)
       .then((response) => response.json())
       .then((data) => {
         setTimeout(() => {
@@ -15,15 +26,16 @@ const Posts = () => {
           setLoading(false);
         }, 500);
       });
-  }, []);
+  }, [filter]);
 
   return (
     <>
       <ScrollView
         contentContainerStyle={{
           flexGrow: 1,
-          justifyContent: "center",
+
           alignItems: "center",
+          justifyContent: isLoading ? "center" : "flex-start",
         }}
         style={styles.container}
       >

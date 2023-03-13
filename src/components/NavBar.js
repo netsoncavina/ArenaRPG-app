@@ -5,7 +5,7 @@ import SelectDropdown from "react-native-select-dropdown";
 import * as Animatable from "react-native-animatable";
 import icons from "./utils";
 
-const NavBar = ({ animation }) => {
+const NavBar = ({ animation, filter, setFilter }) => {
   const [selectedIcon, setSelectedIcon] = useState(
     icons[Math.floor(Math.random() * icons.length)]
   );
@@ -36,7 +36,7 @@ const NavBar = ({ animation }) => {
         rowTextStyle={{ color: "white" }}
         data={options}
         onSelect={(selectedItem, index) => {
-          //   console.log(selectedItem, index);
+          setFilter(selectedItem);
         }}
         buttonTextAfterSelection={(selectedItem, index) => {
           // text represented after item is selected
