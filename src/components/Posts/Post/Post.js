@@ -1,20 +1,42 @@
 import React from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
+import moment from "moment/moment";
+import "moment/locale/pt-br";
 import { Ionicons } from "@expo/vector-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faDiceD20 } from "@fortawesome/free-solid-svg-icons";
 
-const Post = ({ title, author, content, system, type, image }) => {
+const Post = ({ title, author, content, system, type, image, createdAt }) => {
+  moment.locale("pt-br");
   return (
     <View style={styles.container}>
       <View style={styles.topContainer}>
         <Text style={styles.title}>{title}</Text>
-        <Ionicons
-          name="ellipsis-vertical"
-          size={20}
-          color="white"
-          style={styles.interactionIcon}
-        />
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <Ionicons name="time-outline" size={20} color="white" />
+          <Text
+            style={{
+              color: "#fff",
+              marginRight: 7,
+              marginLeft: 4,
+            }}
+          >
+            {moment(createdAt).fromNow()}
+          </Text>
+
+          <Ionicons
+            name="ellipsis-vertical"
+            size={20}
+            color="white"
+            style={styles.interactionIcon}
+          />
+        </View>
       </View>
       <View>
         <Image source={{ uri: image }} style={styles.image} />
