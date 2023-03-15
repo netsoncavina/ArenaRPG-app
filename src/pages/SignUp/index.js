@@ -5,9 +5,11 @@ import {
   TextInput,
   TouchableOpacity,
   ScrollView,
+  Image,
 } from "react-native";
 import React, { useState } from "react";
 import * as Animatable from "react-native-animatable";
+import * as ImagePicker from "expo-image-picker";
 import { Ionicons } from "@expo/vector-icons";
 
 export default function SingUp() {
@@ -15,16 +17,42 @@ export default function SingUp() {
     name: "",
     nickName: "",
     email: "",
+    picture: "",
     password: "",
   });
 
+  const [profilePicture, setProfilePicture] = useState("");
+
   const [confirmPassword, setConfirmPassword] = useState("");
+
+  const handleChoosePhoto = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [3, 4],
+      quality: 1,
+      base64: true,
+    });
+
+    console.log(
+      result.assets[0].base64[0].toString(
+        result.assets[0].base64.includes("data:image/jpeg;base64,")
+      )
+    );
+
+    if (!result.canceled) {
+      setProfilePicture(result.assets[0].uri);
+      setUserData({ ...userData, picture: result.assets[0].base64 });
+    }
+  };
 
   const createUser = async (userData) => {
     let name = userData.name;
     let nickName = userData.nickName;
     let email = userData.email;
     let password = userData.password;
+    // let picture = userData.picture;
+
     try {
       const response = await fetch("http://192.168.15.18:5000/users", {
         method: "POST",
@@ -36,10 +64,11 @@ export default function SingUp() {
           nickName: nickName,
           email: email,
           password: password,
+          // picture: picture,
         }),
       });
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
     } catch (error) {
       console.log(error);
     }
@@ -69,12 +98,21 @@ export default function SingUp() {
       </Animatable.View>
       <Animatable.View animation="fadeInUp" style={styles.containerForm}>
         <View style={styles.imageContainer}>
-          <Ionicons
-            name="person"
-            size={100}
-            style={styles.image}
-            color="#fff"
-          />
+          {profilePicture ? (
+            <Image
+              source={{ uri: profilePicture }}
+              style={styles.image}
+              resizeMode="cover"
+              onPress={handleChoosePhoto}
+            />
+          ) : (
+            <Ionicons
+              name="person"
+              size={100}
+              color="#fff"
+              onPress={handleChoosePhoto}
+            />
+          )}
         </View>
         <Text style={styles.label}>Nome</Text>
         <TextInput
@@ -155,6 +193,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginTop: 20,
     backgroundColor: "#b02b2e",
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+  },
+  image: {
     width: 120,
     height: 120,
     borderRadius: 60,
