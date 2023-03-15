@@ -8,7 +8,8 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import * as Animatable from "react-native-animatable";
-import axios from "axios";
+import { Ionicons } from "@expo/vector-icons";
+
 export default function SingUp() {
   const [userData, setUserData] = useState({
     name: "",
@@ -67,6 +68,14 @@ export default function SingUp() {
         <Text style={styles.message}>Realize seu cadastro aventureiro!</Text>
       </Animatable.View>
       <Animatable.View animation="fadeInUp" style={styles.containerForm}>
+        <View style={styles.imageContainer}>
+          <Ionicons
+            name="person"
+            size={100}
+            style={styles.image}
+            color="#fff"
+          />
+        </View>
         <Text style={styles.label}>Nome</Text>
         <TextInput
           style={styles.input}
@@ -139,6 +148,16 @@ const styles = StyleSheet.create({
     height: "100%",
     paddingStart: "5%",
     paddingEnd: "5%",
+  },
+  imageContainer: {
+    alignSelf: "center",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 20,
+    backgroundColor: "#b02b2e",
+    width: 120,
+    height: 120,
+    borderRadius: 60,
   },
   label: {
     fontSize: 20,
