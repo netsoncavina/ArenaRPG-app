@@ -69,6 +69,7 @@ const Posts = ({ filter }) => {
                 content={post.content}
                 system={post.system}
                 type={post.type}
+                createdAt={post.createdAt}
                 key={post._id}
               />
             );
