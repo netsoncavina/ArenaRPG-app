@@ -1,5 +1,7 @@
 import React from "react";
 import { View, Text, Modal, Image, TextInput, StyleSheet } from "react-native";
+import * as Animatable from "react-native-animatable";
+
 import { Ionicons } from "@expo/vector-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faDiceD20 } from "@fortawesome/free-solid-svg-icons";
@@ -119,9 +121,11 @@ const PostView = ({
           ) : (
             <>
               <Text>Nenhum comentário ainda</Text>
-              <Image
+              <Animatable.Image
                 source={require("../../../../assets/beholder_image.png")}
                 style={{ width: 200, height: 200 }}
+                animation="zoomIn"
+                delay={800}
               />
             </>
           )}
