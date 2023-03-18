@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import Post from "./Post/Post";
 
-const Posts = ({ filter }) => {
+const Posts = ({ filter, image }) => {
   const [posts, setPosts] = useState([]);
   const [isLoading, setLoading] = useState(true);
   useEffect(() => {
@@ -70,6 +70,7 @@ const Posts = ({ filter }) => {
                 system={post.system}
                 type={post.type}
                 createdAt={post.createdAt}
+                icon={image}
                 key={post._id}
               />
             );

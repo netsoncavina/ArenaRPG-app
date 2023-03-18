@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Posts from "../../../components/Posts";
 
-const HomeScreen = ({ filter }) => {
+const HomeScreen = ({ filter, image }) => {
   const [userData, setUserData] = useState({});
 
   const getUserData = async () => {
@@ -25,7 +25,7 @@ const HomeScreen = ({ filter }) => {
   return (
     <View>
       <View style={styles.container}>
-        <Posts filter={filter} />
+        <Posts filter={filter} image={image} />
       </View>
     </View>
   );

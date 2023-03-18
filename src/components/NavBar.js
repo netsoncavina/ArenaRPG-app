@@ -3,21 +3,19 @@ import { View, Text, StyleSheet, Image } from "react-native";
 import { useFonts } from "expo-font";
 import SelectDropdown from "react-native-select-dropdown";
 import * as Animatable from "react-native-animatable";
+
 import icons from "./utils";
 
-const NavBar = ({ animation, filter, setFilter }) => {
-  const [selectedIcon, setSelectedIcon] = useState(
-    icons[Math.floor(Math.random() * icons.length)]
-  );
+const NavBar = ({ animation, filter, setFilter, image, setImage }) => {
   const [loaded] = useFonts({
     Tormenta20x: require("../../assets/fonts/Tormenta20x.ttf"),
   });
   if (!loaded) {
     return null;
   }
-
+  const selectedIcon = icons[Math.floor(Math.random() * icons.length)];
   const options = ["Inicio", "Mesas", "Jogadores", "Off Topic"];
-
+  setImage(selectedIcon.image);
   return (
     <Animatable.View
       style={styles.container}
