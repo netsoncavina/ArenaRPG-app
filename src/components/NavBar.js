@@ -3,19 +3,43 @@ import { View, Text, StyleSheet, Image } from "react-native";
 import { useFonts } from "expo-font";
 import SelectDropdown from "react-native-select-dropdown";
 import * as Animatable from "react-native-animatable";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import icons from "./utils";
 
 const NavBar = ({ animation, filter, setFilter, image, setImage }) => {
+  const [isIcon, setIsIcon] = useState(false);
+  const getUserData = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem("@user_data");
+      return jsonValue != null ? JSON.parse(jsonValue) : null;
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  useEffect(() => {
+    getUserData().then((data) => {
+      if (
+        data.picture != null &&
+        data.picture != undefined &&
+        data.picture != "" &&
+        data.picture < icons.length
+      ) {
+        setImage(icons[data.picture].image);
+        setIsIcon(true);
+      } else {
+        setImage(data.picture);
+        setIsIcon(false);
+      }
+    });
+  }, []);
   const [loaded] = useFonts({
     Tormenta20x: require("../../assets/fonts/Tormenta20x.ttf"),
   });
   if (!loaded) {
     return null;
   }
-  const selectedIcon = icons[Math.floor(Math.random() * icons.length)];
+
   const options = ["Inicio", "Mesas", "Jogadores", "Off Topic"];
-  setImage(selectedIcon.image);
   return (
     <Animatable.View
       style={styles.container}
@@ -52,7 +76,7 @@ const NavBar = ({ animation, filter, setFilter, image, setImage }) => {
       </Text>
       <View>
         <Animatable.Image
-          source={selectedIcon.image}
+          source={isIcon ? image : { uri: image }}
           style={{
             width: 50,
             height: 50,
