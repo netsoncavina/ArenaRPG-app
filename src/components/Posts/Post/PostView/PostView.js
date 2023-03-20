@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, Modal, Image, TextInput, StyleSheet } from "react-native";
 import * as Animatable from "react-native-animatable";
-
 import { Ionicons } from "@expo/vector-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faDiceD20 } from "@fortawesome/free-solid-svg-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import icons from "../../../utils/index";
 
 const PostView = ({
   title,
@@ -19,6 +20,32 @@ const PostView = ({
   modalVisible,
   setModalVisible,
 }) => {
+  const [isIcon, setIsIcon] = useState(false);
+  const [source, setSource] = useState(null);
+  const getUserData = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem("@user_data");
+      return jsonValue != null ? JSON.parse(jsonValue) : null;
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  useEffect(() => {
+    getUserData().then((data) => {
+      if (
+        data.picture != null &&
+        data.picture != undefined &&
+        data.picture != "" &&
+        data.picture < icons.length
+      ) {
+        setSource(icons[data.picture].image);
+        setIsIcon(true);
+      } else {
+        setSource(data.picture);
+        setIsIcon(false);
+      }
+    });
+  }, []);
   return (
     <View style={styles.centeredView}>
       <Modal
@@ -45,7 +72,7 @@ const PostView = ({
           </Text>
           <View>
             <Image
-              source={icon}
+              source={isIcon ? source : { uri: source }}
               style={{
                 width: 50,
                 height: 50,
