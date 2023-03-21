@@ -1,13 +1,34 @@
-import React from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import { View, Text, Image, Pressable, StyleSheet } from "react-native";
 import moment from "moment/moment";
 import "moment/locale/pt-br";
 import { Ionicons } from "@expo/vector-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faDiceD20 } from "@fortawesome/free-solid-svg-icons";
+import PostView from "./PostView/PostView";
 
-const Post = ({ title, author, content, system, type, image, createdAt }) => {
+const Post = ({
+  title,
+  author,
+  content,
+  system,
+  type,
+  image,
+  createdAt,
+  icon,
+  comments,
+}) => {
   moment.locale("pt-br");
+  const [showMenu, setShowMenu] = useState(false);
+  const [showPost, setShowPost] = useState(false);
+  const showDropDownMenu = () => {
+    setShowMenu(!showMenu);
+  };
+
+  const handleShowPost = () => {
+    setShowPost(!showPost);
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.topContainer}>
@@ -35,11 +56,14 @@ const Post = ({ title, author, content, system, type, image, createdAt }) => {
             size={20}
             color="white"
             style={styles.interactionIcon}
+            onPress={showDropDownMenu}
           />
         </View>
       </View>
       <View>
-        <Image source={{ uri: image }} style={styles.image} />
+        <Pressable onPress={handleShowPost}>
+          <Image source={{ uri: image }} style={styles.image} />
+        </Pressable>
         <View style={styles.authorInfo}>
           <Ionicons
             name="person"
@@ -89,6 +113,21 @@ const Post = ({ title, author, content, system, type, image, createdAt }) => {
           style={styles.interactionIcon}
         />
       </View>
+      {showPost && (
+        <PostView
+          title={title}
+          author={author}
+          content={content}
+          system={system}
+          type={type}
+          image={image}
+          createdAt={createdAt}
+          icon={icon}
+          comments={comments}
+          modalVisible={showPost}
+          setModalVisible={setShowPost}
+        />
+      )}
     </View>
   );
 };
