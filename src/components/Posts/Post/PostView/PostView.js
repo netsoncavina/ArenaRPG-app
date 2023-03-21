@@ -1,11 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Modal, Image, TextInput, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  Modal,
+  Image,
+  TextInput,
+  StyleSheet,
+  ScrollView,
+} from "react-native";
 import * as Animatable from "react-native-animatable";
 import { Ionicons } from "@expo/vector-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faDiceD20 } from "@fortawesome/free-solid-svg-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import icons from "../../../utils/index";
+import Comments from "./Comments/Comments";
 
 const PostView = ({
   title,
@@ -137,26 +146,30 @@ const PostView = ({
             style={styles.interactionIcon}
           />
         </View>
-        <View style={styles.commentsSection}>
-          {comments ? (
-            comments.map((comment) => (
-              <View key={comment.id}>
-                <Text>{comment.author}</Text>
-                <Text>{comment.content}</Text>
-              </View>
-            ))
-          ) : (
-            <>
-              <Text>Nenhum comentário ainda</Text>
-              <Animatable.Image
-                source={require("../../../../assets/beholder_image.png")}
-                style={{ width: 200, height: 200 }}
-                animation="zoomIn"
-                delay={800}
-              />
-            </>
-          )}
-        </View>
+        {comments.length != 0 ? (
+          <View style={{ height: "43%" }}>
+            <ScrollView style={{ paddingLeft: 10, paddingRight: 10 }}>
+              {comments.map((comment) => (
+                <Comments
+                  author={comment.author}
+                  text={comment.text}
+                  key={Math.random()}
+                />
+              ))}
+            </ScrollView>
+          </View>
+        ) : (
+          <View style={styles.commentsSection}>
+            <Text>Nenhum comentário ainda</Text>
+            <Animatable.Image
+              source={require("../../../../assets/beholder_image.png")}
+              style={{ width: 200, height: 200 }}
+              animation="zoomIn"
+              delay={800}
+            />
+          </View>
+        )}
+
         <TextInput
           placeholder="Adicione um comentário"
           style={styles.textInput}
