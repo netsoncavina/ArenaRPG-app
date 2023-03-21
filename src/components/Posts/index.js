@@ -71,6 +71,7 @@ const Posts = ({ filter, image }) => {
                 type={post.type}
                 createdAt={post.createdAt}
                 icon={image}
+                comments={post.comments}
                 key={post._id}
               />
             );
