@@ -89,12 +89,16 @@ const PostView = ({
         .then((response) => response.json())
         .then((data) => {
           setComments([...comments, data]);
-          setComment("");
+          clearInput();
         });
-      console.log(comments);
+      // console.log(comments);
     } catch (e) {
       console.log(e);
     }
+  };
+
+  const clearInput = () => {
+    setComment("");
   };
 
   return (
@@ -217,10 +221,11 @@ const PostView = ({
           style={styles.textInput}
           multiline={true}
           onChangeText={(text) => setComment(text)}
+          value={comment}
         />
         <Ionicons
           name="send"
-          size={20}
+          size={25}
           color="white"
           style={styles.sendIcon}
           onPress={() => {
