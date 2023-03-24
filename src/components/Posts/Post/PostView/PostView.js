@@ -197,6 +197,7 @@ const PostView = ({
             <ScrollView style={{ paddingLeft: 10, paddingRight: 10 }}>
               {comments.map((comment) => (
                 <Comments
+                  userInfo={user}
                   author={comment.author}
                   text={comment.text}
                   likes={comment.likes}
