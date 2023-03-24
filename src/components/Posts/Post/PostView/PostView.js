@@ -24,13 +24,15 @@ const PostView = ({
   type,
   image,
   createdAt,
-  comments,
-  icon,
   modalVisible,
   setModalVisible,
+  postId,
 }) => {
+  const [user, setUser] = useState(null);
   const [isIcon, setIsIcon] = useState(false);
   const [source, setSource] = useState(null);
+  const [comment, setComment] = useState("");
+  const [comments, setComments] = useState([]);
   const getUserData = async () => {
     try {
       const jsonValue = await AsyncStorage.getItem("@user_data");
@@ -39,8 +41,22 @@ const PostView = ({
       console.log(e);
     }
   };
+
+  const getComments = async () => {
+    try {
+      fetch(`http://192.168.15.18:5000/comments/post/${postId}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setComments(data);
+        });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   useEffect(() => {
     getUserData().then((data) => {
+      setUser(data);
       if (
         data.picture != null &&
         data.picture != undefined &&
@@ -54,7 +70,33 @@ const PostView = ({
         setIsIcon(false);
       }
     });
+    getComments();
   }, []);
+
+  const handleComment = async () => {
+    try {
+      fetch("http://192.168.15.18:5000/comments", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          text: comment,
+          author: user.nickName,
+          postId: postId,
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          setComments([...comments, data]);
+          setComment("");
+        });
+      console.log(comments);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <View style={styles.centeredView}>
       <Modal
@@ -174,8 +216,23 @@ const PostView = ({
           placeholder="Adicione um comentário"
           style={styles.textInput}
           multiline={true}
+          onChangeText={(text) => setComment(text)}
         />
-        <Ionicons name="send" size={20} color="white" style={styles.sendIcon} />
+        <Ionicons
+          name="send"
+          size={20}
+          color="white"
+          style={styles.sendIcon}
+          onPress={() => {
+            comment != "" &&
+            comment != undefined &&
+            comment != null &&
+            comment.length > 0 &&
+            comment.trim().length !== 0
+              ? handleComment()
+              : null;
+          }}
+        />
       </Modal>
     </View>
   );
