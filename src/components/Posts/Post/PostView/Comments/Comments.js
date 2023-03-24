@@ -1,16 +1,45 @@
-import React from "react";
-import { StyleSheet, Text, View, Image } from "react-native";
+import React, { useState, useEffect } from "react";
+import { StyleSheet, Text, View, Image, ActivityIndicator } from "react-native";
+import icons from "../../../../utils/index";
 
 const Comments = ({ author, text }) => {
+  const [authorInfo, setAuthorInfo] = useState("");
+  const [image, setImage] = useState("");
+  const [isIcon, setIsIcon] = useState(false);
+
+  const getAuthorInfo = async () => {
+    try {
+      fetch(`http://192.168.15.18:5000/users/user/${author}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setAuthorInfo(data);
+          setImage(data[0].picture);
+        });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    getAuthorInfo();
+  }, []);
+
   return (
     <View style={styles.container}>
       <View style={styles.topRow}>
-        <Image
-          source={{
-            uri: "https://avatars.githubusercontent.com/u/1374081?v=4",
-          }}
-          style={styles.image}
-        />
+        {image ? (
+          <Image
+            style={styles.image}
+            source={image.length > 2 ? { uri: image } : icons[image].image}
+          />
+        ) : (
+          <ActivityIndicator
+            size="small"
+            color="#b02b2e"
+            style={{ marginRight: 10 }}
+          />
+        )}
+
         <Text>{author}</Text>
       </View>
       <View style={styles.commentContent}>
