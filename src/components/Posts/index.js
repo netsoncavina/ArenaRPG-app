@@ -72,6 +72,7 @@ const Posts = ({ filter, image }) => {
                 createdAt={post.createdAt}
                 icon={image}
                 comments={post.comments}
+                postId={post._id}
                 key={post._id}
               />
             );
