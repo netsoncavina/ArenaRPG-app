@@ -199,6 +199,11 @@ const PostView = ({
                 <Comments
                   author={comment.author}
                   text={comment.text}
+                  likes={comment.likes}
+                  deslikes={comment.deslikes}
+                  edited={comment.edited}
+                  createdAt={comment.createdAt}
+                  answers={comment.answers}
                   key={Math.random()}
                 />
               ))}
