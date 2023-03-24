@@ -17,6 +17,7 @@ const Post = ({
   createdAt,
   icon,
   comments,
+  postId,
 }) => {
   moment.locale("pt-br");
   const [showMenu, setShowMenu] = useState(false);
@@ -123,7 +124,7 @@ const Post = ({
           image={image}
           createdAt={createdAt}
           icon={icon}
-          comments={comments}
+          postId={postId}
           modalVisible={showPost}
           setModalVisible={setShowPost}
         />
