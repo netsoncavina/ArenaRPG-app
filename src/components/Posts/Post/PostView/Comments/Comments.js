@@ -24,6 +24,7 @@ const Comments = ({
   const [authorInfo, setAuthorInfo] = useState("");
   const [image, setImage] = useState("");
   const [isLiked, setIsLiked] = useState("");
+  const [isDesliked, setIsDesliked] = useState("");
 
   const getAuthorInfo = async () => {
     try {
@@ -52,6 +53,28 @@ const Comments = ({
         .then((response) => response.json())
         .then((data) => {
           setIsLiked(!isLiked);
+          setIsDesliked(false);
+        });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const handleDeslike = async () => {
+    try {
+      fetch(`http://192.168.15.18:5000/comments/deslike/${commentId}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: userInfo._id,
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          setIsDesliked(!isDesliked);
+          setIsLiked(false);
         });
     } catch (e) {
       console.log(e);
@@ -61,6 +84,9 @@ const Comments = ({
   useEffect(() => {
     getAuthorInfo();
     likes.includes(userInfo._id) ? setIsLiked(true) : setIsLiked(false);
+    deslikes.includes(userInfo._id)
+      ? setIsDesliked(true)
+      : setIsDesliked(false);
   }, []);
 
   return (
@@ -91,6 +117,13 @@ const Comments = ({
             <Ionicons name="heart" size={24} color="red" />
           ) : (
             <Ionicons name="heart-outline" size={24} color="black" />
+          )}
+        </TouchableOpacity>
+        <TouchableOpacity onPress={handleDeslike}>
+          {isDesliked ? (
+            <Ionicons name="heart-dislike" size={24} color="#3f0f12" />
+          ) : (
+            <Ionicons name="heart-dislike-outline" size={24} color="black" />
           )}
         </TouchableOpacity>
       </View>
