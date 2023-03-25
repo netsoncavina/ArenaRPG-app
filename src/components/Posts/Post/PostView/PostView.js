@@ -198,6 +198,7 @@ const PostView = ({
               {comments.map((comment) => (
                 <Comments
                   userInfo={user}
+                  commentId={comment._id}
                   author={comment.author}
                   text={comment.text}
                   likes={comment.likes}
