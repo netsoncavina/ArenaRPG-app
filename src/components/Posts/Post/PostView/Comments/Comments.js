@@ -6,7 +6,9 @@ import {
   Image,
   ActivityIndicator,
   TouchableOpacity,
+  Modal,
 } from "react-native";
+import * as Animatable from "react-native-animatable";
 import { Ionicons } from "@expo/vector-icons";
 import icons from "../../../../utils/index";
 
@@ -21,6 +23,7 @@ const Comments = ({
   createdAt,
   answers,
 }) => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const [authorInfo, setAuthorInfo] = useState("");
   const [image, setImage] = useState("");
   const [isLiked, setIsLiked] = useState("");
@@ -159,7 +162,7 @@ const Comments = ({
         </View>
         <View style={{ flexDirection: "row" }}>
           {authorInfo[0]?.nickName === userInfo?.nickName ? (
-            <TouchableOpacity onPress={handleDelete}>
+            <TouchableOpacity onPress={() => setIsModalVisible(true)}>
               <Ionicons
                 name="trash"
                 size={24}
@@ -168,6 +171,62 @@ const Comments = ({
               />
             </TouchableOpacity>
           ) : null}
+          <Modal
+            visible={isModalVisible}
+            animationType="fade"
+            transparent={true}
+            statusBarTranslucent={true}
+          >
+            <View style={styles.modal}>
+              <View
+                style={{
+                  alignItems: "center",
+                  justifyContent: "center",
+                  height: 200,
+                  width: 300,
+                  backgroundColor: "#b02b2e",
+                  borderRadius: 10,
+                }}
+              >
+                <Animatable.Image
+                  source={require("../../../../../assets/logo.png")}
+                  style={{
+                    height: 60,
+                    width: 60,
+                    resizeMode: "contain",
+                  }}
+                  animation="flipInX"
+                  duration={2500}
+                />
+                <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+                  Deseja mesmo deletar esse comentário?
+                </Text>
+                <View style={{ flexDirection: "row", marginTop: 20 }}>
+                  <TouchableOpacity
+                    onPress={handleDelete}
+                    style={{
+                      backgroundColor: "red",
+                      padding: 10,
+                      borderRadius: 10,
+                      marginRight: 20,
+                    }}
+                  >
+                    <Text style={{ color: "white", fontSize: 20 }}>Sim</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => setIsModalVisible(false)}
+                    style={{
+                      backgroundColor: "green",
+                      padding: 10,
+                      borderRadius: 10,
+                    }}
+                  >
+                    <Text style={{ color: "white", fontSize: 20 }}>Não</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </View>
+          </Modal>
         </View>
       </View>
     </View>
@@ -209,5 +268,12 @@ const styles = StyleSheet.create({
     width: "100%",
     paddingLeft: 32,
     paddingTop: 15,
+  },
+  modal: {
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "red",
+    height: "100%",
+    backgroundColor: "rgba(0,0,0,0.85)",
   },
 });
