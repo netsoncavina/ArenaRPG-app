@@ -11,6 +11,7 @@ import {
 import * as Animatable from "react-native-animatable";
 import { Ionicons } from "@expo/vector-icons";
 import icons from "../../../../utils/index";
+import { TextInput } from "react-native-gesture-handler";
 
 const Comments = ({
   userInfo,
@@ -22,8 +23,12 @@ const Comments = ({
   edited,
   createdAt,
   answers,
+  changeComment,
 }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
+  const [textEdit, setTextEdit] = useState(text);
+  const [currentComment, setCurrentComment] = useState(text);
   const [authorInfo, setAuthorInfo] = useState("");
   const [image, setImage] = useState("");
   const [isLiked, setIsLiked] = useState("");
@@ -85,6 +90,28 @@ const Comments = ({
     }
   };
 
+  const handlePatch = async () => {
+    try {
+      fetch(`http://192.168.15.18:5000/comments/${commentId}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          text: textEdit,
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          setIsEdit(false);
+          setCurrentComment(textEdit);
+        });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   const handleDelete = async () => {
     try {
       fetch(`http://192.168.15.18:5000/comments/${commentId}`, {
@@ -140,7 +167,7 @@ const Comments = ({
         </View>
       </View>
       <View style={styles.commentContent}>
-        <Text>{text}</Text>
+        <Text>{currentComment}</Text>
       </View>
 
       <View style={styles.bottomRow}>
@@ -152,13 +179,21 @@ const Comments = ({
               <Ionicons name="heart-outline" size={24} color="black" />
             )}
           </TouchableOpacity>
-          <TouchableOpacity onPress={handleDeslike}>
+          <TouchableOpacity
+            onPress={handleDeslike}
+            style={{ paddingRight: 30 }}
+          >
             {isDesliked ? (
               <Ionicons name="heart-dislike" size={24} color="#3f0f12" />
             ) : (
               <Ionicons name="heart-dislike-outline" size={24} color="black" />
             )}
           </TouchableOpacity>
+          {authorInfo[0]?.nickName === userInfo?.nickName ? (
+            <TouchableOpacity onPress={() => setIsEdit(true)}>
+              <Ionicons name="md-pencil-outline" size={24} color="black" />
+            </TouchableOpacity>
+          ) : null}
         </View>
         <View style={{ flexDirection: "row" }}>
           {authorInfo[0]?.nickName === userInfo?.nickName ? (
@@ -227,6 +262,67 @@ const Comments = ({
               </View>
             </View>
           </Modal>
+          <Modal
+            visible={isEdit}
+            animationType="fade"
+            transparent={true}
+            statusBarTranslucent={true}
+          >
+            <View style={styles.modal}>
+              <View
+                style={{
+                  alignItems: "center",
+                  justifyContent: "center",
+                  height: 200,
+                  width: "100%",
+                  backgroundColor: "#b02b2e",
+                  borderRadius: 10,
+                }}
+              >
+                <Animatable.Image
+                  source={require("../../../../../assets/edit.png")}
+                  style={{
+                    height: 60,
+                    width: 60,
+                    resizeMode: "contain",
+                    marginBottom: 10,
+                  }}
+                  animation="flipInX"
+                  duration={2500}
+                />
+                <TextInput
+                  value={textEdit}
+                  onChangeText={setTextEdit}
+                  style={styles.input}
+                />
+                <View style={{ flexDirection: "row", marginTop: 20 }}>
+                  <TouchableOpacity
+                    onPress={handlePatch}
+                    style={{
+                      backgroundColor: "red",
+                      padding: 10,
+                      borderRadius: 10,
+                      marginRight: 20,
+                    }}
+                  >
+                    <Text>Editar</Text>
+                  </TouchableOpacity>
+
+                  <TouchableOpacity
+                    onPress={() => setIsEdit(false)}
+                    style={{
+                      backgroundColor: "green",
+                      padding: 10,
+                      borderRadius: 10,
+                      marginRight: 20,
+                    }}
+                  >
+                    <Text>Cancelar</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </View>
+          </Modal>
         </View>
       </View>
     </View>
@@ -275,5 +371,13 @@ const styles = StyleSheet.create({
     backgroundColor: "red",
     height: "100%",
     backgroundColor: "rgba(0,0,0,0.85)",
+  },
+  input: {
+    backgroundColor: "white",
+    width: "80%",
+    height: 40,
+    borderRadius: 10,
+    padding: 10,
+    marginBottom: 10,
   },
 });
