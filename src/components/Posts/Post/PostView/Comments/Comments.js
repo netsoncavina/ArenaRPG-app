@@ -122,20 +122,43 @@ const Comments = ({
       </View>
 
       <View style={styles.bottomRow}>
-        <TouchableOpacity onPress={handleLike}>
-          {isLiked ? (
-            <Ionicons name="heart" size={24} color="red" />
+        <View style={{ flexDirection: "row" }}>
+          <TouchableOpacity onPress={handleLike} style={{ paddingRight: 30 }}>
+            {isLiked ? (
+              <Ionicons name="heart" size={24} color="red" />
+            ) : (
+              <Ionicons name="heart-outline" size={24} color="black" />
+            )}
+          </TouchableOpacity>
+          <TouchableOpacity onPress={handleDeslike}>
+            {isDesliked ? (
+              <Ionicons name="heart-dislike" size={24} color="#3f0f12" />
+            ) : (
+              <Ionicons name="heart-dislike-outline" size={24} color="black" />
+            )}
+          </TouchableOpacity>
+        </View>
+        <View style={{ flexDirection: "row", alignItems: "flex-end" }}>
+          {authorInfo[0].nickName === userInfo.nickName ? (
+            <TouchableOpacity>
+              <Ionicons
+                name="trash"
+                size={24}
+                color="black"
+                style={{ alignSelf: "flex-end" }}
+              />
+            </TouchableOpacity>
           ) : (
-            <Ionicons name="heart-outline" size={24} color="black" />
+            <TouchableOpacity>
+              <Ionicons
+                name="chatbubble-ellipses-outline"
+                size={24}
+                color="black"
+                style={{ display: "none" }}
+              />
+            </TouchableOpacity>
           )}
-        </TouchableOpacity>
-        <TouchableOpacity onPress={handleDeslike}>
-          {isDesliked ? (
-            <Ionicons name="heart-dislike" size={24} color="#3f0f12" />
-          ) : (
-            <Ionicons name="heart-dislike-outline" size={24} color="black" />
-          )}
-        </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
@@ -172,7 +195,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    width: "30%",
+    width: "100%",
     paddingLeft: 32,
     paddingTop: 15,
   },
