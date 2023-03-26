@@ -25,6 +25,7 @@ const Comments = ({
   const [image, setImage] = useState("");
   const [isLiked, setIsLiked] = useState("");
   const [isDesliked, setIsDesliked] = useState("");
+  const [isDeleted, setIsDeleted] = useState(false);
 
   const getAuthorInfo = async () => {
     try {
@@ -81,6 +82,24 @@ const Comments = ({
     }
   };
 
+  const handleDelete = async () => {
+    try {
+      fetch(`http://192.168.15.18:5000/comments/${commentId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          setIsDeleted(true);
+        });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   useEffect(() => {
     getAuthorInfo();
     likes.includes(userInfo._id) ? setIsLiked(true) : setIsLiked(false);
@@ -89,7 +108,7 @@ const Comments = ({
       : setIsDesliked(false);
   }, []);
 
-  return (
+  return isDeleted ? null : (
     <View style={styles.container}>
       <View style={styles.topRow}>
         <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -138,9 +157,9 @@ const Comments = ({
             )}
           </TouchableOpacity>
         </View>
-        <View style={{ flexDirection: "row", alignItems: "flex-end" }}>
-          {authorInfo[0].nickName === userInfo.nickName ? (
-            <TouchableOpacity>
+        <View style={{ flexDirection: "row" }}>
+          {authorInfo[0]?.nickName === userInfo?.nickName ? (
+            <TouchableOpacity onPress={handleDelete}>
               <Ionicons
                 name="trash"
                 size={24}
@@ -170,6 +189,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: "100%",
+
     flexDirection: "column",
     borderBottomWidth: 0.9,
     paddingTop: 10,
