@@ -92,20 +92,30 @@ const Comments = ({
   return (
     <View style={styles.container}>
       <View style={styles.topRow}>
-        {image ? (
-          <Image
-            style={styles.image}
-            source={image.length > 2 ? { uri: image } : icons[image].image}
-          />
-        ) : (
-          <ActivityIndicator
-            size="small"
-            color="#b02b2e"
-            style={{ marginRight: 10 }}
-          />
-        )}
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          {image ? (
+            <Image
+              style={styles.image}
+              source={image.length > 2 ? { uri: image } : icons[image].image}
+            />
+          ) : (
+            <ActivityIndicator
+              size="small"
+              color="#b02b2e"
+              style={{ marginRight: 10 }}
+            />
+          )}
 
-        <Text>{author}</Text>
+          <Text>{author}</Text>
+        </View>
+        <View style={{ flex: 1, alignItems: "flex-end" }}>
+          <Ionicons
+            name="ellipsis-vertical"
+            size={20}
+            color="white"
+            style={styles.interactionIcon}
+          />
+        </View>
       </View>
       <View style={styles.commentContent}>
         <Text>{text}</Text>
@@ -162,7 +172,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    width: "100%",
+    width: "30%",
     paddingLeft: 32,
     paddingTop: 15,
   },
