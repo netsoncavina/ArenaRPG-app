@@ -167,16 +167,7 @@ const Comments = ({
                 style={{ alignSelf: "flex-end" }}
               />
             </TouchableOpacity>
-          ) : (
-            <TouchableOpacity>
-              <Ionicons
-                name="chatbubble-ellipses-outline"
-                size={24}
-                color="black"
-                style={{ display: "none" }}
-              />
-            </TouchableOpacity>
-          )}
+          ) : null}
         </View>
       </View>
     </View>
