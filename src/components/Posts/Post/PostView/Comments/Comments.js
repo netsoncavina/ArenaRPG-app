@@ -158,12 +158,17 @@ const Comments = ({
           <Text>{author}</Text>
         </View>
         <View style={{ flex: 1, alignItems: "flex-end" }}>
-          <Ionicons
-            name="ellipsis-vertical"
-            size={20}
-            color="white"
-            style={styles.interactionIcon}
-          />
+          <View style={{ flexDirection: "row" }}>
+            {edited ? (
+              <Text style={{ color: "gray", fontSize: 10 }}>Editado</Text>
+            ) : null}
+            <Ionicons
+              name="ellipsis-vertical"
+              size={20}
+              color="white"
+              style={styles.interactionIcon}
+            />
+          </View>
         </View>
       </View>
       <View style={styles.commentContent}>
