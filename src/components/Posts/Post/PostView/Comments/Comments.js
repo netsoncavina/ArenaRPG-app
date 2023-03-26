@@ -189,22 +189,25 @@ const Comments = ({
               <Ionicons name="heart-dislike-outline" size={24} color="black" />
             )}
           </TouchableOpacity>
-          {authorInfo[0]?.nickName === userInfo?.nickName ? (
-            <TouchableOpacity onPress={() => setIsEdit(true)}>
-              <Ionicons name="md-pencil-outline" size={24} color="black" />
-            </TouchableOpacity>
-          ) : null}
         </View>
         <View style={{ flexDirection: "row" }}>
           {authorInfo[0]?.nickName === userInfo?.nickName ? (
-            <TouchableOpacity onPress={() => setIsModalVisible(true)}>
-              <Ionicons
-                name="trash"
-                size={24}
-                color="black"
-                style={{ alignSelf: "flex-end" }}
-              />
-            </TouchableOpacity>
+            <>
+              <TouchableOpacity
+                onPress={() => setIsEdit(true)}
+                style={{ paddingRight: 30 }}
+              >
+                <Ionicons name="md-pencil-outline" size={24} color="black" />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => setIsModalVisible(true)}>
+                <Ionicons
+                  name="trash"
+                  size={24}
+                  color="black"
+                  style={{ alignSelf: "flex-end" }}
+                />
+              </TouchableOpacity>
+            </>
           ) : null}
           <Modal
             visible={isModalVisible}
@@ -363,6 +366,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     width: "100%",
     paddingLeft: 32,
+    paddingRight: 32,
     paddingTop: 15,
   },
   modal: {
