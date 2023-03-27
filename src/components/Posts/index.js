@@ -5,15 +5,17 @@ import {
   Image,
   Text,
   ActivityIndicator,
+  RefreshControl,
 } from "react-native";
 import Post from "./Post/Post";
 
 const Posts = ({ filter, image }) => {
   const [posts, setPosts] = useState([]);
   const [isLoading, setLoading] = useState(true);
-  useEffect(() => {
+
+  const getPosts = async () => {
     let url;
-    setLoading(true);
+    // setLoading(true);
     if (filter == "Inicio") {
       url = "http://192.168.15.18:5000/posts";
     } else if (filter == "Mesas") {
@@ -32,7 +34,16 @@ const Posts = ({ filter, image }) => {
           setLoading(false);
         }, 500);
       });
+  };
+
+  useEffect(() => {
+    setLoading(true);
+    getPosts();
   }, [filter]);
+
+  const onRefresh = () => {
+    getPosts();
+  };
 
   return (
     <>
@@ -48,6 +59,9 @@ const Posts = ({ filter, image }) => {
             : "flex-start",
         }}
         style={styles.container}
+        refreshControl={
+          <RefreshControl refreshing={isLoading} onRefresh={onRefresh} />
+        }
       >
         {isLoading ? (
           <ActivityIndicator size="large" color="#b02b2e" />
