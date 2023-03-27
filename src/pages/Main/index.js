@@ -14,6 +14,7 @@ const Tab = createBottomTabNavigator();
 export default function Main() {
   const [filter, setFilter] = useState("Inicio");
   const [image, setImage] = useState(null);
+  const [page, setPage] = useState("Home");
   return (
     <>
       <NavBar
@@ -21,7 +22,9 @@ export default function Main() {
         setFilter={setFilter}
         image={image}
         setImage={setImage}
+        page={page}
       />
+
       <Tab.Navigator
         initialRouteName="Home"
         screenOptions={({ route }) => ({
@@ -66,11 +69,12 @@ export default function Main() {
           },
         })}
       >
+        {/* Change setPage based on tab screen */}
         <Tab.Screen
           name="Home"
           children={() => <HomeScreen filter={filter} image={image} />}
         />
-        <Tab.Screen name="Create" component={CreateScreen} />
+        <Tab.Screen name="Create" children={() => <CreateScreen />} />
         <Tab.Screen name="Notifications" component={NotificationsScreen} />
       </Tab.Navigator>
     </>
