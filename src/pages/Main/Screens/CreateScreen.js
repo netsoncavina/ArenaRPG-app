@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -7,10 +7,12 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import SelectDropdown from "react-native-select-dropdown";
 import { Ionicons } from "@expo/vector-icons";
 
 const CreateScreen = () => {
+  const [user, setUser] = useState({});
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [system, setSystem] = useState("");
@@ -18,6 +20,56 @@ const CreateScreen = () => {
   const [image, setImage] = useState(
     "https://uploads.jovemnerd.com.br/wp-content/uploads/2023/03/nc874_dungeons_dragons__jr39vo7bn-1210x544.jpg"
   );
+
+  const getUser = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem("@user_data");
+      const data = JSON.parse(jsonValue);
+      setUser(data.nickName);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const clear = () => {
+    setTitle("");
+    setContent("");
+    setSystem("");
+    setType("");
+    setImage("");
+  };
+
+  const createPost = async () => {
+    try {
+      const response = await fetch("http://192.168.15.18:5000/posts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title: title,
+          content: content,
+          system: system,
+          type: type,
+          image: image,
+          author: user,
+        }),
+      });
+      if (response.status != 201) {
+        alert("Erro ao criar post");
+        return;
+      }
+      const data = await response.json();
+      console.log(data);
+      clear();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getUser();
+  }, []);
 
   const options = ["D&D", "Ghanor", "Tormenta", "AP"];
   const options2 = ["Mesa", "Player", "Off Topic"];
@@ -45,12 +97,16 @@ const CreateScreen = () => {
           <TextInput
             style={styles.input}
             placeholder="Digite o titulo do seu post"
+            onChangeText={(text) => setTitle(text)}
+            value={title}
           />
           <Text style={styles.inputTitle}>Descrição</Text>
           <TextInput
             style={styles.inputMultiline}
             placeholder="Digite a descrição do seu post"
             multiline={true}
+            onChangeText={(text) => setContent(text)}
+            value={content}
           />
         </View>
         <View style={styles.dropDowns}>
@@ -112,7 +168,12 @@ const CreateScreen = () => {
           </View>
         </View>
 
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            createPost();
+          }}
+        >
           <Text style={styles.buttonText}>Postar</Text>
         </TouchableOpacity>
       </View>
