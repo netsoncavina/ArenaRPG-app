@@ -60,23 +60,28 @@ const Posts = ({ filter, image }) => {
             />
           </>
         ) : (
-          posts.map((post) => {
-            return (
-              <Post
-                image={post.image}
-                title={post.title}
-                author={post.author}
-                content={post.content}
-                system={post.system}
-                type={post.type}
-                createdAt={post.createdAt}
-                icon={image}
-                comments={post.comments}
-                postId={post._id}
-                key={post._id}
-              />
-            );
-          })
+          // Order posts by most recent
+          posts
+            .sort((a, b) => {
+              return new Date(b.createdAt) - new Date(a.createdAt);
+            })
+            .map((post) => {
+              return (
+                <Post
+                  image={post.image}
+                  title={post.title}
+                  author={post.author}
+                  content={post.content}
+                  system={post.system}
+                  type={post.type}
+                  createdAt={post.createdAt}
+                  icon={image}
+                  comments={post.comments}
+                  postId={post._id}
+                  key={post._id}
+                />
+              );
+            })
         )}
       </ScrollView>
     </>
