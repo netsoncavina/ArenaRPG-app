@@ -8,18 +8,17 @@ import {
   TouchableOpacity,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as ImagePicker from "expo-image-picker";
 import SelectDropdown from "react-native-select-dropdown";
 import { Ionicons } from "@expo/vector-icons";
 
-const CreateScreen = () => {
+const CreateScreen = ({ setPage }) => {
   const [user, setUser] = useState({});
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [system, setSystem] = useState("");
   const [type, setType] = useState("");
-  const [image, setImage] = useState(
-    "https://uploads.jovemnerd.com.br/wp-content/uploads/2023/03/nc874_dungeons_dragons__jr39vo7bn-1210x544.jpg"
-  );
+  const [image, setImage] = useState("");
 
   const getUser = async () => {
     try {
@@ -28,6 +27,26 @@ const CreateScreen = () => {
       setUser(data.nickName);
     } catch (e) {
       console.log(e);
+    }
+  };
+
+  const handleChoosePhoto = async () => {
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (status !== "granted") {
+      alert("Desculpe, precisamos de acesso às suas fotos!");
+      return;
+    }
+
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+      base64: true,
+    });
+
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
     }
   };
 
@@ -82,15 +101,20 @@ const CreateScreen = () => {
             <Image style={styles.image} resizeMode="cover" src={image} />
           </View>
         ) : (
-          <View style={styles.selectImage}>
-            <Text>Selecionar imagem</Text>
-            <Ionicons
-              name="image"
-              size={35}
-              color="white"
-              style={{ marginLeft: 5 }}
-            />
-          </View>
+          <TouchableOpacity
+            onPress={handleChoosePhoto}
+            style={styles.selectImage}
+          >
+            <View style={{ alignItems: "center" }}>
+              <Text>Selecionar imagem</Text>
+              <Ionicons
+                name="image"
+                size={35}
+                color="white"
+                style={{ marginLeft: 5 }}
+              />
+            </View>
+          </TouchableOpacity>
         )}
         <View style={styles.inputSpace}>
           <Text style={styles.inputTitle}>Titulo do Post</Text>
