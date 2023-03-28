@@ -10,6 +10,7 @@ import {
 import React, { useState } from "react";
 import * as Animatable from "react-native-animatable";
 import * as ImagePicker from "expo-image-picker";
+
 import { Ionicons } from "@expo/vector-icons";
 
 export default function SingUp() {
@@ -25,24 +26,33 @@ export default function SingUp() {
 
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  const formatBase64 = (base64) => {
+    const base64Img = `data:image/jpg;base64,${base64}`;
+    return base64Img;
+  };
+
   const handleChoosePhoto = async () => {
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (status !== "granted") {
+      alert("Desculpe, precisamos de acesso às suas fotos!");
+      return;
+    }
+
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
-      aspect: [3, 4],
+      aspect: [4, 3],
       quality: 1,
       base64: true,
     });
 
-    console.log(
-      result.assets[0].base64[0].toString(
-        result.assets[0].base64.includes("data:image/jpeg;base64,")
-      )
-    );
-
+    console.log(result.assets[0].base64);
     if (!result.canceled) {
       setProfilePicture(result.assets[0].uri);
-      setUserData({ ...userData, picture: result.assets[0].base64 });
+      setUserData({
+        ...userData,
+        picture: `data:image/png;base64,${result.assets[0].base64}`,
+      });
     }
   };
 
@@ -51,7 +61,7 @@ export default function SingUp() {
     let nickName = userData.nickName;
     let email = userData.email;
     let password = userData.password;
-    // let picture = userData.picture;
+    let picture = userData.picture;
 
     try {
       const response = await fetch("http://192.168.15.18:5000/users", {
@@ -64,7 +74,7 @@ export default function SingUp() {
           nickName: nickName,
           email: email,
           password: password,
-          // picture: picture,
+          picture: picture,
         }),
       });
       const data = await response.json();
