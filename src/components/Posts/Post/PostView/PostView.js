@@ -121,9 +121,9 @@ const PostView = ({
           />
 
           <Text
-            style={{ fontFamily: "Tormenta20x", color: "white", fontSize: 20 }}
+            style={{ fontFamily: "Tormenta20x", color: "white", fontSize: 23 }}
           >
-            Heróis do RPG
+            Arena RPG
           </Text>
           <View>
             <Image

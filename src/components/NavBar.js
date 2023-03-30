@@ -73,8 +73,8 @@ const NavBar = ({ setFilter, image, setImage, page }) => {
           }}
         />
       ) : null}
-      <Text style={{ fontFamily: "Tormenta20x", color: "white", fontSize: 20 }}>
-        Heróis do RPG
+      <Text style={{ fontFamily: "Tormenta20x", color: "white", fontSize: 23 }}>
+        Arena RPG
       </Text>
       <View>
         <Animatable.Image
