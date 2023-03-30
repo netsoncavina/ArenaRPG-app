@@ -4,6 +4,7 @@ import SignIn from "../pages/Login/index.js";
 import SignUp from "../pages/SignUp/index.js";
 import Welcome from "../pages/Welcome/index.js";
 import Main from "../pages/Main/index.js";
+import ProfileScreen from "../pages/ProfileScreen/index.js";
 
 const Stack = createNativeStackNavigator();
 
@@ -28,6 +29,11 @@ export default function Routes() {
       <Stack.Screen
         name="Main"
         component={Main}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ProfileScreen"
+        component={ProfileScreen}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
