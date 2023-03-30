@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Posts from "../../../components/Posts";
+import { LinearGradient } from "expo-linear-gradient";
 
 const HomeScreen = ({ filter, image }) => {
   const [userData, setUserData] = useState({});
@@ -23,11 +24,14 @@ const HomeScreen = ({ filter, image }) => {
   }, []);
 
   return (
-    <View>
+    <LinearGradient
+      colors={["#3f0f12", "#b02b2e", "#3f0f12", "#1e1e1e"]}
+      style={{ flex: 1 }}
+    >
       <View style={styles.container}>
         <Posts filter={filter} image={image} />
       </View>
-    </View>
+    </LinearGradient>
   );
 };
 

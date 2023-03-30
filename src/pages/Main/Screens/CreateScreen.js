@@ -11,6 +11,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as ImagePicker from "expo-image-picker";
 import SelectDropdown from "react-native-select-dropdown";
 import { Ionicons } from "@expo/vector-icons";
+import { LinearGradient } from "expo-linear-gradient";
 
 const CreateScreen = ({ setPage }) => {
   const [user, setUser] = useState({});
@@ -95,7 +96,10 @@ const CreateScreen = ({ setPage }) => {
   const options2 = ["Mesa", "Player", "Off Topic"];
 
   return (
-    <View>
+    <LinearGradient
+      colors={["#b02b2e", "#3f0f12", "#1e1e1e"]}
+      style={{ flex: 1 }}
+    >
       <View style={styles.container}>
         {image ? (
           <View style={{ height: 100 }}>
@@ -202,7 +206,7 @@ const CreateScreen = ({ setPage }) => {
           <Text style={styles.buttonText}>Postar</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </LinearGradient>
   );
 };
 

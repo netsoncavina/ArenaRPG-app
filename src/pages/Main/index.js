@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Text } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
+import { LinearGradient } from "expo-linear-gradient";
 
 // Screens
 import HomeScreen from "./Screens/HomeScreen";
@@ -16,7 +17,7 @@ export default function Main() {
   const [image, setImage] = useState(null);
   const [page, setPage] = useState("Home");
   return (
-    <>
+    <LinearGradient colors={["#3f0f12", "#3f0f12"]} style={{ height: "100%" }}>
       <NavBar
         filter={filter}
         setFilter={setFilter}
@@ -77,6 +78,6 @@ export default function Main() {
         <Tab.Screen name="Create" children={() => <CreateScreen />} />
         <Tab.Screen name="Notifications" component={NotificationsScreen} />
       </Tab.Navigator>
-    </>
+    </LinearGradient>
   );
 }
