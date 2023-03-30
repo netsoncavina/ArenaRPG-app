@@ -145,7 +145,12 @@ const PostView = ({
           <Text style={styles.imageInnerText}>{title}</Text>
         </View>
         <View style={styles.info}>
-          <View style={{ flexDirection: "row" }}>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
             <Ionicons
               name="person"
               size={24}
@@ -274,7 +279,6 @@ const styles = StyleSheet.create({
   },
   imageInnerText: {
     position: "absolute",
-
     fontSize: 30,
     fontFamily: "Tormenta20x",
     textAlign: "center",
