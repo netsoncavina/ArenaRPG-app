@@ -40,13 +40,13 @@ const CreateScreen = ({ setPage }) => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
-      aspect: [4, 3],
+      aspect: [6, 3],
       quality: 1,
       base64: true,
     });
 
     if (!result.canceled) {
-      setImage(result.assets[0].uri);
+      setImage(`data:image/png;base64,${result.assets[0].base64}`);
     }
   };
 
@@ -75,11 +75,12 @@ const CreateScreen = ({ setPage }) => {
         }),
       });
       if (response.status != 201) {
+        console.log(response);
         alert("Erro ao criar post");
         return;
       }
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
       clear();
     } catch (error) {
       console.log(error);
