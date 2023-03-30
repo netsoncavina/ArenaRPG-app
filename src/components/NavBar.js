@@ -10,9 +10,11 @@ import icons from "./utils";
 const NavBar = ({ setFilter, image, setImage, page }) => {
   const navigation = useNavigation();
   const [isIcon, setIsIcon] = useState(false);
+  const [profileData, setProfileData] = useState("");
   const getUserData = async () => {
     try {
       const jsonValue = await AsyncStorage.getItem("@user_data");
+      setProfileData(JSON.parse(jsonValue));
       return jsonValue != null ? JSON.parse(jsonValue) : null;
     } catch (e) {
       console.log(e);
@@ -79,7 +81,11 @@ const NavBar = ({ setFilter, image, setImage, page }) => {
         Arena RPG
       </Text>
       <View>
-        <TouchableOpacity onPress={() => navigation.navigate("ProfileScreen")}>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate("ProfileScreen", { profileData: profileData })
+          }
+        >
           <Animatable.Image
             source={isIcon ? image : { uri: image }}
             style={{
