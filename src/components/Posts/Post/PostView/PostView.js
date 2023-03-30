@@ -264,17 +264,17 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 150,
     backgroundColor: "black",
+    justifyContent: "center",
+    alignItems: "center",
   },
   image: {
     width: "100%",
     height: 150,
-    opacity: 0.25,
+    opacity: 0.2,
   },
   imageInnerText: {
     position: "absolute",
-    top: 10,
-    left: "5%",
-    width: "100%",
+
     fontSize: 30,
     fontFamily: "Tormenta20x",
     textAlign: "center",
