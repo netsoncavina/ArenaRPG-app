@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { useFonts } from "expo-font";
+import { useNavigation } from "@react-navigation/native";
 import SelectDropdown from "react-native-select-dropdown";
 import * as Animatable from "react-native-animatable";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import icons from "./utils";
 
 const NavBar = ({ setFilter, image, setImage, page }) => {
+  const navigation = useNavigation();
   const [isIcon, setIsIcon] = useState(false);
   const getUserData = async () => {
     try {
@@ -77,18 +79,20 @@ const NavBar = ({ setFilter, image, setImage, page }) => {
         Arena RPG
       </Text>
       <View>
-        <Animatable.Image
-          source={isIcon ? image : { uri: image }}
-          style={{
-            width: 50,
-            height: 50,
-            borderRadius: 30,
-            borderColor: "#1e1e1e",
-            borderWidth: 2,
-          }}
-          animation="zoomIn"
-          delay={800}
-        />
+        <TouchableOpacity onPress={() => navigation.navigate("ProfileScreen")}>
+          <Animatable.Image
+            source={isIcon ? image : { uri: image }}
+            style={{
+              width: 50,
+              height: 50,
+              borderRadius: 30,
+              borderColor: "#1e1e1e",
+              borderWidth: 2,
+            }}
+            animation="zoomIn"
+            delay={800}
+          />
+        </TouchableOpacity>
       </View>
     </Animatable.View>
   );
