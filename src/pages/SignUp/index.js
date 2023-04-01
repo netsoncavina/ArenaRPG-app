@@ -160,7 +160,7 @@ export default function SingUp() {
         <Text style={styles.label}>Confirme sua senha</Text>
         <TextInput
           style={styles.password}
-          placeholder="Confirme sua senha..."
+          placeholder="Digite sua senha novamente..."
           secureTextEntry={true}
           onChangeText={(value) => setConfirmPassword(value)}
         />
