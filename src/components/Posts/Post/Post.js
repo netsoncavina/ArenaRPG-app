@@ -6,6 +6,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faDiceD20 } from "@fortawesome/free-solid-svg-icons";
 import PostView from "./PostView/PostView";
+import PopUpMenu from "../../PopUpMenu";
 
 const Post = ({
   title,
@@ -22,8 +23,13 @@ const Post = ({
   moment.locale("pt-br");
   const [showMenu, setShowMenu] = useState(false);
   const [showPost, setShowPost] = useState(false);
+  const [showSecondaryIcons, setShowSecondaryIcons] = useState(false);
   const showDropDownMenu = () => {
     setShowMenu(!showMenu);
+  };
+
+  const handleShowSecondaryIcons = () => {
+    setShowSecondaryIcons(!showSecondaryIcons);
   };
 
   const handleShowPost = () => {
@@ -52,13 +58,7 @@ const Post = ({
             {moment(createdAt).fromNow()}
           </Text>
 
-          <Ionicons
-            name="ellipsis-vertical"
-            size={20}
-            color="white"
-            style={styles.interactionIcon}
-            onPress={showDropDownMenu}
-          />
+          {/* <PopUpMenu /> */}
         </View>
       </View>
       <View>
@@ -95,24 +95,57 @@ const Post = ({
         </View>
       </View>
       <View style={styles.interactionIcons}>
-        <Ionicons
-          name="heart"
-          size={20}
-          color="white"
-          style={styles.interactionIcon}
-        />
-        <Ionicons
-          name="chatbubble"
-          size={20}
-          color="white"
-          style={styles.interactionIcon}
-        />
-        <Ionicons
-          name="share-social"
-          size={20}
-          color="white"
-          style={styles.interactionIcon}
-        />
+        {showSecondaryIcons ? (
+          <>
+            <Ionicons
+              name="heart"
+              size={20}
+              color="white"
+              style={styles.interactionIcon}
+            />
+            <Ionicons
+              name="chatbubble"
+              size={20}
+              color="white"
+              style={styles.interactionIcon}
+            />
+            <Ionicons
+              name="share-social"
+              size={20}
+              color="white"
+              style={styles.interactionIcon}
+            />
+            <Ionicons
+              name="arrow-forward"
+              size={20}
+              color="white"
+              style={styles.interactionIcon}
+              onPress={handleShowSecondaryIcons}
+            />
+          </>
+        ) : (
+          <>
+            <Ionicons
+              name="arrow-back"
+              size={20}
+              color="white"
+              style={styles.interactionIcon}
+              onPress={handleShowSecondaryIcons}
+            />
+            <Ionicons
+              name="md-pencil-outline"
+              size={20}
+              color="white"
+              style={styles.interactionIcon}
+            />
+            <Ionicons
+              name="trash"
+              size={20}
+              color="black"
+              style={styles.interactionIcon}
+            />
+          </>
+        )}
       </View>
       {showPost && (
         <PostView
@@ -135,7 +168,7 @@ const Post = ({
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%",
+    width: "95%",
     height: 180,
     backgroundColor: "#1e1e1e",
     borderRadius: 10,
@@ -198,7 +231,6 @@ const styles = StyleSheet.create({
     left: 10,
     width: 350,
   },
-
   interactionIcon: {
     margin: 5,
   },
