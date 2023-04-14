@@ -124,7 +124,10 @@ const ProfileScreen = (profileData) => {
             ) : posts.length == 0 ? (
               <>
                 <Text style={styles.text}>Nenhum post encontrado :( </Text>
-                <Image source={require("../../assets/meme.png")} />
+                <Image
+                  source={require("../../assets/sad.png")}
+                  style={styles.image}
+                />
               </>
             ) : (
               posts
@@ -184,5 +187,8 @@ const styles = StyleSheet.create({
   container: {
     height: "100%",
   },
-  image: {},
+  image: {
+    width: 300,
+    height: 300,
+  },
 });
