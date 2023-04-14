@@ -29,7 +29,7 @@ const HomeScreen = ({ filter, image }) => {
       style={{ flex: 1 }}
     >
       <View style={styles.container}>
-        <Posts filter={filter} image={image} />
+        <Posts filter={filter} image={image} currentUser={userData.nickName} />
       </View>
     </LinearGradient>
   );
@@ -39,7 +39,6 @@ const styles = StyleSheet.create({
   container: {
     height: "100%",
     alignItems: "center",
-    // justifyContent: "center",
   },
 });
 
