@@ -7,7 +7,6 @@ import { Ionicons } from "@expo/vector-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faDiceD20 } from "@fortawesome/free-solid-svg-icons";
 import PostView from "./PostView/PostView";
-import PopUpMenu from "../../PopUpMenu";
 
 const Post = ({
   title,
@@ -76,8 +75,6 @@ const Post = ({
           >
             {moment(createdAt).fromNow()}
           </Text>
-
-          {/* <PopUpMenu /> */}
         </View>
       </View>
       <View>
