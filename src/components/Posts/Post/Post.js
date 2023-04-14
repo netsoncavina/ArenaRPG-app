@@ -95,7 +95,7 @@ const Post = ({
         </View>
       </View>
       <View style={styles.interactionIcons}>
-        {showSecondaryIcons ? (
+        {showSecondaryIcons === false ? (
           <>
             <Ionicons
               name="heart"
