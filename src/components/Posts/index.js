@@ -7,9 +7,10 @@ import {
   ActivityIndicator,
   RefreshControl,
 } from "react-native";
+import { MenuProvider } from "react-native-popup-menu";
 import Post from "./Post/Post";
 
-const Posts = ({ filter, image }) => {
+const Posts = ({ filter, image, currentUser }) => {
   const [posts, setPosts] = useState([]);
   const [isLoading, setLoading] = useState(true);
 
@@ -63,40 +64,43 @@ const Posts = ({ filter, image }) => {
           <RefreshControl refreshing={isLoading} onRefresh={onRefresh} />
         }
       >
-        {isLoading ? (
-          <ActivityIndicator size="large" color="#b02b2e" />
-        ) : posts.length == 0 ? (
-          <>
-            <Text style={styles.text}>Nenhum post encontrado :( </Text>
-            <Image
-              style={styles.image}
-              source={require("../../assets/meme.png")}
-            />
-          </>
-        ) : (
-          // Order posts by most recent
-          posts
-            .sort((a, b) => {
-              return new Date(b.createdAt) - new Date(a.createdAt);
-            })
-            .map((post) => {
-              return (
-                <Post
-                  image={post.image}
-                  title={post.title}
-                  author={post.author}
-                  content={post.content}
-                  system={post.system}
-                  type={post.type}
-                  createdAt={post.createdAt}
-                  icon={image}
-                  comments={post.comments}
-                  postId={post._id}
-                  key={post._id}
-                />
-              );
-            })
-        )}
+        <MenuProvider>
+          {isLoading ? (
+            <ActivityIndicator size="large" color="#b02b2e" />
+          ) : posts.length == 0 ? (
+            <>
+              <Text style={styles.text}>Nenhum post encontrado :( </Text>
+              <Image
+                style={styles.image}
+                source={require("../../assets/meme.png")}
+              />
+            </>
+          ) : (
+            // Order posts by most recent
+            posts
+              .sort((a, b) => {
+                return new Date(b.createdAt) - new Date(a.createdAt);
+              })
+              .map((post) => {
+                return (
+                  <Post
+                    image={post.image}
+                    title={post.title}
+                    author={post.author}
+                    content={post.content}
+                    system={post.system}
+                    type={post.type}
+                    createdAt={post.createdAt}
+                    icon={image}
+                    comments={post.comments}
+                    postId={post._id}
+                    currentUser={currentUser}
+                    key={post._id}
+                  />
+                );
+              })
+          )}
+        </MenuProvider>
       </ScrollView>
     </>
   );
