@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, Image, Pressable, StyleSheet } from "react-native";
 import moment from "moment/moment";
 import "moment/locale/pt-br";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Ionicons } from "@expo/vector-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faDiceD20 } from "@fortawesome/free-solid-svg-icons";
@@ -19,13 +20,24 @@ const Post = ({
   icon,
   comments,
   postId,
+  currentUser,
 }) => {
   moment.locale("pt-br");
+  const [user, setUser] = useState(null);
   const [showMenu, setShowMenu] = useState(false);
   const [showPost, setShowPost] = useState(false);
   const [showSecondaryIcons, setShowSecondaryIcons] = useState(false);
   const showDropDownMenu = () => {
     setShowMenu(!showMenu);
+  };
+
+  const getUserData = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem("@user_data");
+      return jsonValue != null ? JSON.parse(jsonValue) : null;
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const handleShowSecondaryIcons = () => {
@@ -35,6 +47,13 @@ const Post = ({
   const handleShowPost = () => {
     setShowPost(!showPost);
   };
+
+  useEffect(() => {
+    getUserData().then((data) => {
+      setUser(data);
+      // console.log(data);
+    });
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -115,13 +134,15 @@ const Post = ({
               color="white"
               style={styles.interactionIcon}
             />
-            <Ionicons
-              name="arrow-forward"
-              size={20}
-              color="white"
-              style={styles.interactionIcon}
-              onPress={handleShowSecondaryIcons}
-            />
+            {currentUser === author ? (
+              <Ionicons
+                name="arrow-forward"
+                size={20}
+                color="white"
+                style={styles.interactionIcon}
+                onPress={handleShowSecondaryIcons}
+              />
+            ) : null}
           </>
         ) : (
           <>
