@@ -169,8 +169,8 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   imageStyle: {
-    width: 150,
-    height: 150,
+    width: 200,
+    height: 200,
     borderRadius: 100,
     borderColor: "#1e1e1e",
     borderWidth: 2,
