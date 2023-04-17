@@ -93,6 +93,7 @@ const Posts = ({ filter, image, currentUser }) => {
                   comments={post.comments}
                   postId={post._id}
                   currentUser={currentUser}
+                  refresh={onRefresh}
                   key={post._id}
                 />
               );
