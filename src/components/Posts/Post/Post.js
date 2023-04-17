@@ -20,6 +20,7 @@ const Post = ({
   comments,
   postId,
   currentUser,
+  refresh,
 }) => {
   moment.locale("pt-br");
   const [user, setUser] = useState(null);
@@ -45,6 +46,17 @@ const Post = ({
 
   const handleShowPost = () => {
     setShowPost(!showPost);
+  };
+
+  const handleDeletePost = () => {
+    fetch(`http://192.168.15.18:5000/posts/${postId}`, {
+      method: "DELETE",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // console.log(data);
+        refresh();
+      });
   };
 
   useEffect(() => {
@@ -161,6 +173,7 @@ const Post = ({
               size={20}
               color="black"
               style={styles.interactionIcon}
+              onPress={handleDeletePost}
             />
           </>
         )}
