@@ -13,10 +13,10 @@ import Post from "./Post/Post";
 const Posts = ({ filter, image, currentUser }) => {
   const [posts, setPosts] = useState([]);
   const [isLoading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
 
   const getPosts = async () => {
     let url;
-    // setLoading(true);
     if (filter == "Inicio") {
       url = "http://192.168.15.18:5000/posts";
     } else if (filter == "Mesas") {
@@ -61,7 +61,7 @@ const Posts = ({ filter, image, currentUser }) => {
         }}
         style={styles.container}
         refreshControl={
-          <RefreshControl refreshing={isLoading} onRefresh={onRefresh} />
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
         {isLoading ? (
@@ -75,7 +75,6 @@ const Posts = ({ filter, image, currentUser }) => {
             />
           </>
         ) : (
-          // Order posts by most recent
           posts
             .sort((a, b) => {
               return new Date(b.createdAt) - new Date(a.createdAt);
