@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Image, Pressable, StyleSheet } from "react-native";
+import { View, Text, Image, Pressable, StyleSheet, Modal } from "react-native";
 import moment from "moment/moment";
 import "moment/locale/pt-br";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -27,6 +27,7 @@ const Post = ({
   const [showMenu, setShowMenu] = useState(false);
   const [showPost, setShowPost] = useState(false);
   const [showSecondaryIcons, setShowSecondaryIcons] = useState(false);
+  const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
   const showDropDownMenu = () => {
     setShowMenu(!showMenu);
   };
@@ -173,11 +174,42 @@ const Post = ({
               size={20}
               color="black"
               style={styles.interactionIcon}
-              onPress={handleDeletePost}
+              onPress={() => setIsDeleteModalVisible(true)}
             />
           </>
         )}
       </View>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={isDeleteModalVisible}
+        onRequestClose={() => {
+          setIsDeleteModalVisible(!isDeleteModalVisible);
+        }}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalText}>Deseja deletar o post?</Text>
+            <View style={styles.modalButtons}>
+              <Pressable
+                style={[styles.button, styles.buttonClose]}
+                onPress={() => setIsDeleteModalVisible(!isDeleteModalVisible)}
+              >
+                <Text style={styles.textStyle}>Cancelar</Text>
+              </Pressable>
+              <Pressable
+                style={[styles.button, styles.buttonClose]}
+                onPress={() => {
+                  setIsDeleteModalVisible(!isDeleteModalVisible);
+                  handleDeletePost();
+                }}
+              >
+                <Text style={styles.textStyle}>Deletar</Text>
+              </Pressable>
+            </View>
+          </View>
+        </View>
+      </Modal>
       {showPost && (
         <PostView
           title={title}
@@ -263,6 +295,62 @@ const styles = StyleSheet.create({
     width: 350,
   },
   interactionIcon: {
+    margin: 5,
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 10,
+  },
+  modalView: {
+    margin: 10,
+    backgroundColor: "white",
+    borderRadius: 10,
+    padding: 10,
+    alignItems: "center",
+    shadowColor: "#000",
+    width: 300,
+    height: 150,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.5,
+    elevation: 5,
+  },
+  modalButtons: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    width: 200,
+  },
+  button: {
+    borderRadius: 10,
+    padding: 10,
+    elevation: 2,
+    margin: 5,
+  },
+  buttonOpen: {
+    backgroundColor: "#F194FF",
+  },
+  buttonClose: {
+    backgroundColor: "#1e1e1e",
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  modalText: {
+    fontSize: 18,
+    marginBottom: 15,
+    textAlign: "center",
+  },
+  icon: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
     margin: 5,
   },
 });
