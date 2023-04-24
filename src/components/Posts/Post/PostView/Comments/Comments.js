@@ -12,6 +12,7 @@ import * as Animatable from "react-native-animatable";
 import { Ionicons } from "@expo/vector-icons";
 import icons from "../../../../utils/index";
 import { TextInput } from "react-native-gesture-handler";
+import DeleteModal from "../../../../Modals/DeleteModal";
 
 const Comments = ({
   userInfo,
@@ -214,62 +215,12 @@ const Comments = ({
               </TouchableOpacity>
             </>
           ) : null}
-          <Modal
-            visible={isModalVisible}
-            animationType="fade"
-            transparent={true}
-            statusBarTranslucent={true}
-          >
-            <View style={styles.modal}>
-              <View
-                style={{
-                  alignItems: "center",
-                  justifyContent: "center",
-                  height: 200,
-                  width: 300,
-                  backgroundColor: "#b02b2e",
-                  borderRadius: 10,
-                }}
-              >
-                <Animatable.Image
-                  source={require("../../../../../assets/logo.png")}
-                  style={{
-                    height: 60,
-                    width: 60,
-                    resizeMode: "contain",
-                  }}
-                  animation="flipInX"
-                  duration={2500}
-                />
-                <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-                  Deseja mesmo deletar esse comentário?
-                </Text>
-                <View style={{ flexDirection: "row", marginTop: 20 }}>
-                  <TouchableOpacity
-                    onPress={handleDelete}
-                    style={{
-                      backgroundColor: "red",
-                      padding: 10,
-                      borderRadius: 10,
-                      marginRight: 20,
-                    }}
-                  >
-                    <Text style={{ color: "white", fontSize: 20 }}>Sim</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={() => setIsModalVisible(false)}
-                    style={{
-                      backgroundColor: "green",
-                      padding: 10,
-                      borderRadius: 10,
-                    }}
-                  >
-                    <Text style={{ color: "white", fontSize: 20 }}>Não</Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
-            </View>
-          </Modal>
+          <DeleteModal
+            modalVisible={isModalVisible}
+            setModalVisible={setIsModalVisible}
+            handleDelete={handleDelete}
+            type={"comentário"}
+          />
           <Modal
             visible={isEdit}
             animationType="fade"
