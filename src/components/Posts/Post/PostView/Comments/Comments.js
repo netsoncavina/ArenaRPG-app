@@ -13,6 +13,7 @@ import { Ionicons } from "@expo/vector-icons";
 import icons from "../../../../utils/index";
 import { TextInput } from "react-native-gesture-handler";
 import DeleteModal from "../../../../Modals/DeleteModal";
+import EditModal from "../../../../Modals/EditModal";
 
 const Comments = ({
   userInfo,
@@ -221,67 +222,13 @@ const Comments = ({
             handleDelete={handleDelete}
             type={"comentário"}
           />
-          <Modal
-            visible={isEdit}
-            animationType="fade"
-            transparent={true}
-            statusBarTranslucent={true}
-          >
-            <View style={styles.modal}>
-              <View
-                style={{
-                  alignItems: "center",
-                  justifyContent: "center",
-                  height: 200,
-                  width: "100%",
-                  backgroundColor: "#b02b2e",
-                  borderRadius: 10,
-                }}
-              >
-                <Animatable.Image
-                  source={require("../../../../../assets/edit.png")}
-                  style={{
-                    height: 60,
-                    width: 60,
-                    resizeMode: "contain",
-                    marginBottom: 10,
-                  }}
-                  animation="flipInX"
-                  duration={2500}
-                />
-                <TextInput
-                  value={textEdit}
-                  onChangeText={setTextEdit}
-                  style={styles.input}
-                />
-                <View style={{ flexDirection: "row", marginTop: 20 }}>
-                  <TouchableOpacity
-                    onPress={handlePatch}
-                    style={{
-                      backgroundColor: "red",
-                      padding: 10,
-                      borderRadius: 10,
-                      marginRight: 20,
-                    }}
-                  >
-                    <Text>Editar</Text>
-                  </TouchableOpacity>
-
-                  <TouchableOpacity
-                    onPress={() => setIsEdit(false)}
-                    style={{
-                      backgroundColor: "green",
-                      padding: 10,
-                      borderRadius: 10,
-                      marginRight: 20,
-                    }}
-                  >
-                    <Text>Cancelar</Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
-            </View>
-          </Modal>
+          <EditModal
+            modalVisible={isEdit}
+            setModalVisible={setIsEdit}
+            handlePatch={handlePatch}
+            textEdit={textEdit}
+            setTextEdit={setTextEdit}
+          />
         </View>
       </View>
     </View>
