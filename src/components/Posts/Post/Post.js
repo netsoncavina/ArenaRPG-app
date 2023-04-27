@@ -31,6 +31,7 @@ const Post = ({
   const [showSecondaryIcons, setShowSecondaryIcons] = useState(false);
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
+  const [titleEdit, setTitleEdit] = useState(title);
   const [textEdit, setTextEdit] = useState(content);
   const showDropDownMenu = () => {
     setShowMenu(!showMenu);
@@ -72,6 +73,7 @@ const Post = ({
       },
       body: JSON.stringify({
         content: textEdit,
+        title: titleEdit,
       }),
     })
       .then((response) => response.json())
@@ -215,6 +217,9 @@ const Post = ({
         handlePatch={handleEditPost}
         textEdit={textEdit}
         setTextEdit={setTextEdit}
+        titleEdit={titleEdit}
+        setTitleEdit={setTitleEdit}
+        type={"post"}
       />
 
       {showPost && (
