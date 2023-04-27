@@ -15,6 +15,7 @@ const EditModal = ({
   handlePatch,
   textEdit,
   setTextEdit,
+  type,
 }) => {
   return (
     <Modal
@@ -28,10 +29,11 @@ const EditModal = ({
           style={{
             alignItems: "center",
             justifyContent: "center",
-            height: 200,
+            height: "auto",
             width: "100%",
             backgroundColor: "#b02b2e",
             borderRadius: 10,
+            padding: 20,
           }}
         >
           <Animatable.Image
@@ -49,6 +51,7 @@ const EditModal = ({
             value={textEdit}
             onChangeText={setTextEdit}
             style={styles.input}
+            multiline={true}
           />
           <View style={{ flexDirection: "row", marginTop: 20 }}>
             <TouchableOpacity
@@ -93,8 +96,8 @@ const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: "white",
-    width: "80%",
-    height: 40,
+    width: "100%",
+    height: "auto",
     borderRadius: 10,
     padding: 10,
     marginBottom: 10,
