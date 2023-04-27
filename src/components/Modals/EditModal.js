@@ -15,6 +15,8 @@ const EditModal = ({
   handlePatch,
   textEdit,
   setTextEdit,
+  titleEdit,
+  setTitleEdit,
   type,
 }) => {
   return (
@@ -47,6 +49,21 @@ const EditModal = ({
             animation="flipInX"
             duration={2500}
           />
+          {type === "post" ? (
+            <>
+              <Text style={{ color: "white", fontSize: 20, marginBottom: 10 }}>
+                Titulo do Post
+              </Text>
+              <TextInput
+                value={titleEdit}
+                onChangeText={setTitleEdit}
+                style={styles.input}
+              />
+              <Text style={{ color: "white", fontSize: 20, marginBottom: 10 }}>
+                Conteúdo
+              </Text>
+            </>
+          ) : null}
           <TextInput
             value={textEdit}
             onChangeText={setTextEdit}
