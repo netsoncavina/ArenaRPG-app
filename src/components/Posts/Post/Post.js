@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faDiceD20 } from "@fortawesome/free-solid-svg-icons";
 import PostView from "./PostView/PostView";
 import DeleteModal from "../../Modals/DeleteModal";
+import EditModal from "../../Modals/EditModal";
 
 const Post = ({
   title,
@@ -29,6 +30,8 @@ const Post = ({
   const [showPost, setShowPost] = useState(false);
   const [showSecondaryIcons, setShowSecondaryIcons] = useState(false);
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
+  const [isEditModalVisible, setIsEditModalVisible] = useState(false);
+  const [textEdit, setTextEdit] = useState(content);
   const showDropDownMenu = () => {
     setShowMenu(!showMenu);
   };
@@ -57,6 +60,24 @@ const Post = ({
       .then((response) => response.json())
       .then((data) => {
         // console.log(data);
+        refresh();
+      });
+  };
+
+  const handleEditPost = () => {
+    fetch(`http://192.168.15.18:5000/posts/${postId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        content: textEdit,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // console.log(data);
+        setIsEditModalVisible(false);
         refresh();
       });
   };
@@ -169,6 +190,7 @@ const Post = ({
               size={20}
               color="white"
               style={styles.interactionIcon}
+              onPress={() => setIsEditModalVisible(true)}
             />
             <Ionicons
               name="trash"
@@ -185,6 +207,14 @@ const Post = ({
         setModalVisible={setIsDeleteModalVisible}
         handleDelete={handleDeletePost}
         type={"post"}
+      />
+
+      <EditModal
+        modalVisible={isEditModalVisible}
+        setModalVisible={setIsEditModalVisible}
+        handlePatch={handleEditPost}
+        textEdit={textEdit}
+        setTextEdit={setTextEdit}
       />
 
       {showPost && (
