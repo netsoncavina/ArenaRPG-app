@@ -80,7 +80,7 @@ const EditModal = ({
                 marginRight: 20,
               }}
             >
-              <Text>Editar</Text>
+              <Text style={{ color: "white" }}>Editar</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -92,7 +92,7 @@ const EditModal = ({
                 marginRight: 20,
               }}
             >
-              <Text>Cancelar</Text>
+              <Text style={{ color: "white" }}>Cancelar</Text>
             </TouchableOpacity>
           </View>
         </View>
