@@ -64,7 +64,7 @@ const EditModal = ({
             </TouchableOpacity>
 
             <TouchableOpacity
-              onPress={() => setIsEdit(false)}
+              onPress={() => setModalVisible(false)}
               style={{
                 backgroundColor: "green",
                 padding: 10,
