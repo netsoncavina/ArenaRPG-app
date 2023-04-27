@@ -87,7 +87,11 @@ const ProfileScreen = (profileData) => {
                   paddingLeft: 2,
                 }}
               >
-                {posts.length} posts publicados
+                {posts.length === 0
+                  ? "Nenhum post publicado"
+                  : posts.length > 1
+                  ? `${posts.length} posts publicados`
+                  : `${posts.length} post publicado`}
               </Text>
             </View>
           </View>
@@ -169,8 +173,8 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   imageStyle: {
-    width: 200,
-    height: 200,
+    width: 180,
+    height: 180,
     borderRadius: 100,
     borderColor: "#1e1e1e",
     borderWidth: 2,
