@@ -13,22 +13,18 @@ import { LinearGradient } from "expo-linear-gradient";
 import moment from "moment/moment";
 import "moment/locale/pt-br";
 import Post from "../../components/Posts/Post/Post";
+import { getUserPosts } from "../../api/user";
 
 const ProfileScreen = (profileData) => {
   const [posts, setPosts] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const userData = profileData.route.params.profileData;
-  const getUserPosts = async () => {
-    let url = `http://192.168.15.18:5000/posts/user/${userData.nickName}`;
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        setPosts(data);
-      });
-  };
+
   useEffect(() => {
     setTimeout(() => {
-      getUserPosts();
+      getUserPosts(userData.nickName).then((data) => {
+        setPosts(data);
+      });
       setLoading(false);
     }, 500);
   }, []);
