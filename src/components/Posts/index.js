@@ -7,7 +7,7 @@ import {
   ActivityIndicator,
   RefreshControl,
 } from "react-native";
-import { MenuProvider } from "react-native-popup-menu";
+import { getPosts } from "../../api/post";
 import Post from "./Post/Post";
 
 const Posts = ({ filter, image, currentUser }) => {
@@ -15,35 +15,22 @@ const Posts = ({ filter, image, currentUser }) => {
   const [isLoading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
 
-  const getPosts = async () => {
-    let url;
-    if (filter == "Inicio") {
-      url = "http://192.168.15.18:5000/posts";
-    } else if (filter == "Mesas") {
-      url = "http://192.168.15.18:5000/posts/post/Mesa";
-    } else if (filter == "Jogadores") {
-      url = "http://192.168.15.18:5000/posts/post/Jogadores";
-    } else if (filter == "Off Topic") {
-      url = "http://192.168.15.18:5000/posts/post/Off Topic";
-    }
-
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        setTimeout(() => {
-          setPosts(data);
-          setLoading(false);
-        }, 500);
-      });
-  };
-
   useEffect(() => {
     setLoading(true);
-    getPosts();
+    getPosts(filter, setLoading).then((data) => {
+      setPosts(data);
+      setLoading(false);
+      setRefreshing(false);
+    });
   }, [filter]);
 
   const onRefresh = () => {
-    getPosts();
+    setRefreshing(true);
+    getPosts(filter, setLoading).then((data) => {
+      setPosts(data);
+      setLoading(false);
+      setRefreshing(false);
+    });
   };
 
   return (
