@@ -18,3 +18,12 @@ export const getPosts = async (filter, setLoading) => {
     console.log(error);
   }
 };
+
+export const likePost = async (id) => {
+  try {
+    const response = await axios.patch(`${baseUrl}/like/${id}`);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
