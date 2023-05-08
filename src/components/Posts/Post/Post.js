@@ -9,7 +9,7 @@ import { faDiceD20 } from "@fortawesome/free-solid-svg-icons";
 import PostView from "./PostView/PostView";
 import DeleteModal from "../../Modals/DeleteModal";
 import EditModal from "../../Modals/EditModal";
-import { likePost, deletePost } from "../../../api/post";
+import { likePost, editPost, deletePost } from "../../../api/post";
 
 const Post = ({
   title,
@@ -58,34 +58,15 @@ const Post = ({
     setShowPost(!showPost);
   };
 
-  // const handleDeletePost = () => {
-  //   fetch(`http://192.168.15.18:5000/posts/${postId}`, {
-  //     method: "DELETE",
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       // console.log(data);
-  //       refresh();
-  //     });
-  // };
-
-  const handleEditPost = () => {
-    fetch(`http://192.168.15.18:5000/posts/${postId}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        content: textEdit,
-        title: titleEdit,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // console.log(data);
-        setIsEditModalVisible(false);
-        refresh();
-      });
+  const handleEditPost = async () => {
+    try {
+      const response = await editPost(postId, titleEdit, textEdit);
+      // console.log(response);
+      setIsEditModalVisible(false);
+      refresh();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleDeletePost = async () => {
