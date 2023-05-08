@@ -30,6 +30,18 @@ export const likePost = async (id, userId) => {
   }
 };
 
+export const editPost = async (id, title, content) => {
+  try {
+    const response = await axios.patch(`${baseUrl}/${id}`, {
+      content: content,
+      title: title,
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const deletePost = async (id) => {
   try {
     const response = await axios.delete(`${baseUrl}/${id}`);
