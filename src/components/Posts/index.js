@@ -78,6 +78,8 @@ const Posts = ({ filter, image, currentUser }) => {
                   createdAt={post.createdAt}
                   icon={image}
                   comments={post.comments}
+                  likes={post.likes}
+                  deslikes={post.deslikes}
                   postId={post._id}
                   currentUser={currentUser}
                   refresh={onRefresh}
