@@ -9,6 +9,7 @@ import { faDiceD20 } from "@fortawesome/free-solid-svg-icons";
 import PostView from "./PostView/PostView";
 import DeleteModal from "../../Modals/DeleteModal";
 import EditModal from "../../Modals/EditModal";
+import { likePost } from "../../../api/post";
 
 const Post = ({
   title,
@@ -35,6 +36,7 @@ const Post = ({
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
   const [titleEdit, setTitleEdit] = useState(title);
   const [textEdit, setTextEdit] = useState(content);
+  const [heartColor, setHeartColor] = useState(null);
   const showDropDownMenu = () => {
     setShowMenu(!showMenu);
   };
@@ -84,6 +86,16 @@ const Post = ({
         setIsEditModalVisible(false);
         refresh();
       });
+  };
+
+  const handleLike = async () => {
+    try {
+      const response = await likePost(postId, user._id);
+      // console.log(response);
+      setHeartColor(heartColor === "white" ? "red" : "white");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -152,37 +164,39 @@ const Post = ({
       <View style={styles.interactionIcons}>
         {showSecondaryIcons === false ? (
           <>
-            {likes.includes(user._id) ? (
+            {likes.includes(user?._id) ? (
               <Ionicons
                 name="heart"
-                size={20}
-                color="red"
+                size={24}
+                color={heartColor}
                 style={styles.interactionIcon}
+                onPress={handleLike}
               />
             ) : (
               <Ionicons
                 name="heart"
-                size={20}
-                color="white"
+                size={24}
+                color={heartColor}
                 style={styles.interactionIcon}
+                onPress={handleLike}
               />
             )}
             <Ionicons
               name="chatbubble"
-              size={20}
+              size={24}
               color="white"
               style={styles.interactionIcon}
             />
             <Ionicons
               name="share-social"
-              size={20}
+              size={24}
               color="white"
               style={styles.interactionIcon}
             />
             {currentUser === author ? (
               <Ionicons
                 name="arrow-forward"
-                size={20}
+                size={24}
                 color="white"
                 style={styles.interactionIcon}
                 onPress={handleShowSecondaryIcons}
@@ -193,21 +207,21 @@ const Post = ({
           <>
             <Ionicons
               name="arrow-back"
-              size={20}
+              size={24}
               color="white"
               style={styles.interactionIcon}
               onPress={handleShowSecondaryIcons}
             />
             <Ionicons
               name="md-pencil-outline"
-              size={20}
+              size={24}
               color="white"
               style={styles.interactionIcon}
               onPress={() => setIsEditModalVisible(true)}
             />
             <Ionicons
               name="trash"
-              size={20}
+              size={24}
               color="white"
               style={styles.interactionIcon}
               onPress={() => setIsDeleteModalVisible(true)}
