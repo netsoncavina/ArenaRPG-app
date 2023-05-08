@@ -20,6 +20,8 @@ const Post = ({
   createdAt,
   icon,
   comments,
+  likes,
+  deslikes,
   postId,
   currentUser,
   refresh,
@@ -150,12 +152,21 @@ const Post = ({
       <View style={styles.interactionIcons}>
         {showSecondaryIcons === false ? (
           <>
-            <Ionicons
-              name="heart"
-              size={20}
-              color="white"
-              style={styles.interactionIcon}
-            />
+            {likes.includes(user._id) ? (
+              <Ionicons
+                name="heart"
+                size={20}
+                color="red"
+                style={styles.interactionIcon}
+              />
+            ) : (
+              <Ionicons
+                name="heart"
+                size={20}
+                color="white"
+                style={styles.interactionIcon}
+              />
+            )}
             <Ionicons
               name="chatbubble"
               size={20}
@@ -197,7 +208,7 @@ const Post = ({
             <Ionicons
               name="trash"
               size={20}
-              color="black"
+              color="white"
               style={styles.interactionIcon}
               onPress={() => setIsDeleteModalVisible(true)}
             />
