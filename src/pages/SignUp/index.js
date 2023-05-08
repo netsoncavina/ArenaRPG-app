@@ -232,6 +232,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginTop: 40,
+    marginBottom: 30,
   },
   buttonText: {
     fontSize: 16,
