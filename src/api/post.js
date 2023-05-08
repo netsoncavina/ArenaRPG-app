@@ -19,9 +19,20 @@ export const getPosts = async (filter, setLoading) => {
   }
 };
 
-export const likePost = async (id) => {
+export const likePost = async (id, userId) => {
   try {
-    const response = await axios.patch(`${baseUrl}/like/${id}`);
+    const response = await axios.patch(`${baseUrl}/like/${id}`, {
+      userId: userId,
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deletePost = async (id) => {
+  try {
+    const response = await axios.delete(`${baseUrl}/${id}`);
     return response.data;
   } catch (error) {
     console.log(error);
