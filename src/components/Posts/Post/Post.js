@@ -9,7 +9,7 @@ import { faDiceD20 } from "@fortawesome/free-solid-svg-icons";
 import PostView from "./PostView/PostView";
 import DeleteModal from "../../Modals/DeleteModal";
 import EditModal from "../../Modals/EditModal";
-import { likePost } from "../../../api/post";
+import { likePost, deletePost } from "../../../api/post";
 
 const Post = ({
   title,
@@ -58,16 +58,16 @@ const Post = ({
     setShowPost(!showPost);
   };
 
-  const handleDeletePost = () => {
-    fetch(`http://192.168.15.18:5000/posts/${postId}`, {
-      method: "DELETE",
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // console.log(data);
-        refresh();
-      });
-  };
+  // const handleDeletePost = () => {
+  //   fetch(`http://192.168.15.18:5000/posts/${postId}`, {
+  //     method: "DELETE",
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       // console.log(data);
+  //       refresh();
+  //     });
+  // };
 
   const handleEditPost = () => {
     fetch(`http://192.168.15.18:5000/posts/${postId}`, {
@@ -86,6 +86,17 @@ const Post = ({
         setIsEditModalVisible(false);
         refresh();
       });
+  };
+
+  const handleDeletePost = async () => {
+    try {
+      const response = await deletePost(postId);
+      // console.log(response);
+      setIsDeleteModalVisible(false);
+      refresh();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleLike = async () => {
