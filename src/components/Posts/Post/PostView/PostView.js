@@ -221,7 +221,7 @@ const PostView = ({
             <Text>Nenhum comentário ainda</Text>
             <Animatable.Image
               source={require("../../../../assets/beholder_image.png")}
-              style={{ width: 200, height: 200 }}
+              style={{ width: 200, height: 200, marginTop: "20%" }}
               animation="zoomIn"
               delay={800}
             />
