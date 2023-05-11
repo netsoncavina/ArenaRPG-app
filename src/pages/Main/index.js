@@ -67,6 +67,7 @@ export default function Main() {
             height: 70,
             backgroundColor: "#1e1e1e",
             padding: 10,
+            borderTopWidth: 0,
           },
         })}
       >
