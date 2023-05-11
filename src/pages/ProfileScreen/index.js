@@ -6,6 +6,7 @@ import {
   ScrollView,
   ActivityIndicator,
   Image,
+  BackHandler,
 } from "react-native";
 import { useFonts } from "expo-font";
 import * as Animatable from "react-native-animatable";
@@ -145,6 +146,8 @@ const ProfileScreen = (profileData) => {
                       type={post.type}
                       createdAt={post.createdAt}
                       comments={post.comments}
+                      likes={post.likes}
+                      deslikes={post.deslikes}
                       postId={post._id}
                       key={post._id}
                     />
