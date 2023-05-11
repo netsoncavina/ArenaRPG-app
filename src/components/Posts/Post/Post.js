@@ -36,7 +36,7 @@ const Post = ({
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
   const [titleEdit, setTitleEdit] = useState(title);
   const [textEdit, setTextEdit] = useState(content);
-  const [heartColor, setHeartColor] = useState(null);
+  const [heartColor, setHeartColor] = useState("white");
   const showDropDownMenu = () => {
     setShowMenu(!showMenu);
   };
