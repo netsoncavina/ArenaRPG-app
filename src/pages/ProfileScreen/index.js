@@ -6,7 +6,6 @@ import {
   ScrollView,
   ActivityIndicator,
   Image,
-  BackHandler,
 } from "react-native";
 import { useFonts } from "expo-font";
 import * as Animatable from "react-native-animatable";
