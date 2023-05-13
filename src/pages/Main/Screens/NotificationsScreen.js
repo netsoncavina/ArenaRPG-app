@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import Notification from "../../../components/Notification/Notification";
 
@@ -9,9 +9,13 @@ const NotificationsScreen = () => {
       colors={["#b02b2e", "#3f0f12", "#1e1e1e"]}
       style={{ flex: 1 }}
     >
-      <View>
-        <Notification />
-      </View>
+      <ScrollView>
+        <Notification type={"comment"} author={"VoidNoxian"} />
+        <Notification type={"like"} author={"Dayzinha"} />
+        <Notification type={"comment"} author={"Jack"} />
+        <Notification type={"like"} author={"Jamersons"} />
+        <Notification type={"like"} author={"Tomato"} />
+      </ScrollView>
     </LinearGradient>
   );
 };
