@@ -199,6 +199,7 @@ const Post = ({
               size={24}
               color="white"
               style={styles.interactionIcon}
+              onPress={handleShowPost}
             />
             <Ionicons
               name="share-social"
