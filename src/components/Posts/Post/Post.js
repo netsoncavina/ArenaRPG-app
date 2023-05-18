@@ -90,6 +90,27 @@ const Post = ({
     }
   };
 
+  const handleShare = async () => {
+    try {
+      const result = await Share.share({
+        title: title,
+        message: "Titulo: " + title + "\n" + content,
+        url: image,
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // console.log("shared with activity type of", result.activityType);
+        } else {
+          // console.log("shared");
+        }
+      } else if (result.action === Share.dismissedAction) {
+        alert("dismissed");
+      }
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
   useEffect(() => {
     getUserData().then((data) => {
       setUser(data);
@@ -184,6 +205,7 @@ const Post = ({
               size={24}
               color="white"
               style={styles.interactionIcon}
+              onPress={handleShare}
             />
             {currentUser === author ? (
               <Ionicons
