@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Image, Pressable, StyleSheet, Modal } from "react-native";
+import { View, Text, Image, Pressable, StyleSheet, Share } from "react-native";
 import moment from "moment/moment";
 import "moment/locale/pt-br";
 import AsyncStorage from "@react-native-async-storage/async-storage";
