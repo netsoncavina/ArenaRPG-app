@@ -273,6 +273,7 @@ const Post = ({
           createdAt={createdAt}
           icon={icon}
           postId={postId}
+          likes={likes}
           modalVisible={showPost}
           setModalVisible={setShowPost}
         />

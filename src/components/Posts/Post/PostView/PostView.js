@@ -15,6 +15,8 @@ import { faDiceD20 } from "@fortawesome/free-solid-svg-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import icons from "../../../utils/index";
 import Comments from "./Comments/Comments";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { likePost } from "../../../../api/post";
 
 const PostView = ({
   title,
@@ -23,6 +25,7 @@ const PostView = ({
   system,
   type,
   image,
+  likes,
   createdAt,
   modalVisible,
   setModalVisible,
