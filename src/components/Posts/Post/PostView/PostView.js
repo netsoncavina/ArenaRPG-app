@@ -214,12 +214,7 @@ const PostView = ({
               onPress={handleLike}
             />
           )}
-          <Ionicons
-            name="chatbubble"
-            size={20}
-            color="white"
-            style={styles.interactionIcon}
-          />
+
           <Ionicons
             name="share-social"
             size={20}

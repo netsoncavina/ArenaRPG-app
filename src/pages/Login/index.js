@@ -21,7 +21,7 @@ export default function SignIn() {
     try {
       const jsonValue = JSON.stringify(value);
       await AsyncStorage.setItem("@user_data", jsonValue);
-      console.log("User saved");
+      // console.log("User saved");
     } catch (e) {
       console.log(e);
     }
@@ -47,7 +47,7 @@ export default function SignIn() {
         return;
       }
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
       storeData(data);
 
       navigation.navigate("Main");
@@ -85,7 +85,11 @@ export default function SignIn() {
           }
         />
 
-        <TouchableOpacity style={styles.button} onPress={login}>
+        <TouchableOpacity
+          style={styles.button}
+          // onPress={() => navigation.navigate("Main")}
+          onPress={login}
+        >
           <Text style={styles.buttonText}>Entrar</Text>
         </TouchableOpacity>
 
