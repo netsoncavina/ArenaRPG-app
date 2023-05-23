@@ -7,6 +7,7 @@ import {
   TextInput,
   StyleSheet,
   ScrollView,
+  Share,
 } from "react-native";
 import * as Animatable from "react-native-animatable";
 import { Ionicons } from "@expo/vector-icons";
@@ -66,6 +67,27 @@ const PostView = ({
       setHeartColor(heartColor === "white" ? "red" : "white");
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const handleShare = async () => {
+    try {
+      const result = await Share.share({
+        title: title,
+        message: "Titulo: " + title + "\n" + content,
+        url: image,
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // console.log("shared with activity type of", result.activityType);
+        } else {
+          // console.log("shared");
+        }
+      } else if (result.action === Share.dismissedAction) {
+        alert("dismissed");
+      }
+    } catch (error) {
+      alert(error.message);
     }
   };
 
@@ -220,6 +242,7 @@ const PostView = ({
             size={24}
             color="white"
             style={styles.interactionIcon}
+            onPress={handleShare}
           />
         </View>
         {comments.length != 0 ? (
