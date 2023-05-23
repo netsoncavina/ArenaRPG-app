@@ -36,6 +36,8 @@ const PostView = ({
   const [source, setSource] = useState(null);
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
+  const [heartColor, setHeartColor] = useState("white");
+  const [isLiked, setIsLiked] = useState(false);
   const getUserData = async () => {
     try {
       const jsonValue = await AsyncStorage.getItem("@user_data");
@@ -57,6 +59,16 @@ const PostView = ({
     }
   };
 
+  const handleLike = async () => {
+    try {
+      const response = await likePost(postId, user._id);
+      // console.log(response);
+      setHeartColor(heartColor === "white" ? "red" : "white");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     getUserData().then((data) => {
       setUser(data);
@@ -71,6 +83,10 @@ const PostView = ({
       } else {
         setSource(data.picture);
         setIsIcon(false);
+      }
+      if (likes.includes(data._id)) {
+        setIsLiked(true);
+        setHeartColor("red");
       }
     });
     getComments();
@@ -181,12 +197,23 @@ const PostView = ({
           <Text style={{ fontSize: 15 }}>{content}</Text>
         </View>
         <View style={styles.interactionIcons}>
-          <Ionicons
-            name="heart"
-            size={20}
-            color="white"
-            style={styles.interactionIcon}
-          />
+          {isLiked ? (
+            <Ionicons
+              name="heart"
+              size={24}
+              color="red"
+              style={styles.interactionIcon}
+              onPress={handleLike}
+            />
+          ) : (
+            <Ionicons
+              name="heart"
+              size={24}
+              color="white"
+              style={styles.interactionIcon}
+              onPress={handleLike}
+            />
+          )}
           <Ionicons
             name="chatbubble"
             size={20}
