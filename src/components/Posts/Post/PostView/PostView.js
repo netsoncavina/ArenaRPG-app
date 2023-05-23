@@ -217,7 +217,7 @@ const PostView = ({
 
           <Ionicons
             name="share-social"
-            size={20}
+            size={24}
             color="white"
             style={styles.interactionIcon}
           />
