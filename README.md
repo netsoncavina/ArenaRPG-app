@@ -1,5 +1,6 @@
 # HeroisDoRPG-app
 Aplicativo sendo desenvolvido em React Native 
+Link para o backend: https://github.com/netsoncavina/HeroisDoRPG-server
 
 # Telas
 <img src="https://github.com/netsoncavina/HeroisDoRPG-app/assets/1374081/501f2ef3-9207-4b00-b6a0-bee53253cd43" width="15%"></img> 
