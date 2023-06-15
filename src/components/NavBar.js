@@ -43,7 +43,7 @@ const NavBar = ({ setFilter, image, setImage, page }) => {
     return null;
   }
 
-  const options = ["Inicio", "Mesas", "Jogadores", "Off Topic", "Recomendados"];
+  const options = ["Inicio", "Recomendados", "Mesas", "Jogadores", "Off Topic"];
   return (
     <Animatable.View
       style={styles.container}
