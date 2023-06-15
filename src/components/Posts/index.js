@@ -61,11 +61,35 @@ const Posts = ({ filter, image, currentUser }) => {
               source={require("../../assets/meme.png")}
             />
           </>
-        ) : (
+        ) : filter !== "Recomendados" ? (
           posts
             .sort((a, b) => {
               return new Date(b.createdAt) - new Date(a.createdAt);
             })
+            .map((post) => {
+              return (
+                <Post
+                  image={post.image}
+                  title={post.title}
+                  author={post.author}
+                  content={post.content}
+                  system={post.system}
+                  type={post.type}
+                  createdAt={post.createdAt}
+                  icon={image}
+                  comments={post.comments}
+                  likes={post.likes}
+                  deslikes={post.deslikes}
+                  postId={post._id}
+                  currentUser={currentUser}
+                  refresh={onRefresh}
+                  key={post._id}
+                />
+              );
+            })
+        ) : (
+          posts
+            .sort(() => Math.random() - 0.5)
             .map((post) => {
               return (
                 <Post
