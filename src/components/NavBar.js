@@ -43,7 +43,7 @@ const NavBar = ({ setFilter, image, setImage, page }) => {
     return null;
   }
 
-  const options = ["Inicio", "Mesas", "Jogadores", "Off Topic"];
+  const options = ["Inicio", "Mesas", "Jogadores", "Off Topic", "Recomendados"];
   return (
     <Animatable.View
       style={styles.container}
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 0.2,
   },
   dropdown: {
-    width: 110,
+    width: 145,
     height: 30,
     backgroundColor: "#1e1e1e66",
     borderRadius: 5,
