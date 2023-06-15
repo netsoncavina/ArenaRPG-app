@@ -10,7 +10,7 @@ export const getPosts = async (filter, setLoading) => {
   } else if (filter == "Off Topic") {
     url = `${baseUrl}/post/Off Topic`;
   } else if (filter == "Recomendados") {
-    url = `${baseUrl}/post/`;
+    url = `${baseUrl}`;
   }
   try {
     const response = await axios.get(url);
