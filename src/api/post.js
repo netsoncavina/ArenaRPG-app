@@ -9,6 +9,8 @@ export const getPosts = async (filter, setLoading) => {
     url = `${baseUrl}/post/Jogadores`;
   } else if (filter == "Off Topic") {
     url = `${baseUrl}/post/Off Topic`;
+  } else if (filter == "Recomendados") {
+    url = `${baseUrl}/post/`;
   }
   try {
     const response = await axios.get(url);
