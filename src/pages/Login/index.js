@@ -32,16 +32,19 @@ export default function SignIn() {
     let password = userData.password;
     // console.log(nickName, password);
     try {
-      const response = await fetch("http://192.168.15.18:5000/users/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          nickName: nickName,
-          password: password,
-        }),
-      });
+      const response = await fetch(
+        "https://arena-rpg.up.railway.app/users/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            nickName: nickName,
+            password: password,
+          }),
+        }
+      );
       if (response.status != 200) {
         alert("Usuário ou senha inválidos");
         return;

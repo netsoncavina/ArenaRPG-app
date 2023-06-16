@@ -39,7 +39,7 @@ const Comments = ({
 
   const getAuthorInfo = async () => {
     try {
-      fetch(`http://192.168.15.18:5000/users/user/${author}`)
+      fetch(`https://arena-rpg.up.railway.app/users/user/${author}`)
         .then((response) => response.json())
         .then((data) => {
           setAuthorInfo(data);
@@ -52,7 +52,7 @@ const Comments = ({
 
   const handleLike = async () => {
     try {
-      fetch(`http://192.168.15.18:5000/comments/like/${commentId}`, {
+      fetch(`https://arena-rpg.up.railway.app/comments/like/${commentId}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -73,7 +73,7 @@ const Comments = ({
 
   const handleDeslike = async () => {
     try {
-      fetch(`http://192.168.15.18:5000/comments/deslike/${commentId}`, {
+      fetch(`https://arena-rpg.up.railway.app/comments/deslike/${commentId}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -94,7 +94,7 @@ const Comments = ({
 
   const handlePatch = async () => {
     try {
-      fetch(`http://192.168.15.18:5000/comments/${commentId}`, {
+      fetch(`https://arena-rpg.up.railway.app/comments/${commentId}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -116,7 +116,7 @@ const Comments = ({
 
   const handleDelete = async () => {
     try {
-      fetch(`http://192.168.15.18:5000/comments/${commentId}`, {
+      fetch(`https://arena-rpg.up.railway.app/comments/${commentId}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

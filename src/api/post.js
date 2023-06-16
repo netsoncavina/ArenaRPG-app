@@ -1,5 +1,5 @@
 import axios from "axios";
-let baseUrl = "http://192.168.15.18:5000/posts";
+let baseUrl = "https://arena-rpg.up.railway.app/posts";
 export const getPosts = async (filter, setLoading) => {
   if (filter == "Inicio") {
     url = `${baseUrl}`;

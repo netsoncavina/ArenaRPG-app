@@ -64,7 +64,7 @@ export default function SingUp() {
     let picture = userData.picture;
 
     try {
-      const response = await fetch("http://192.168.15.18:5000/users", {
+      const response = await fetch("https://arena-rpg.up.railway.app/users", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

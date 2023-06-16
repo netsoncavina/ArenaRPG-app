@@ -116,7 +116,7 @@ const PostView = ({
 
   const handleComment = async () => {
     try {
-      fetch("http://192.168.15.18:5000/comments", {
+      fetch("https://arena-rpg.up.railway.app/comments", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

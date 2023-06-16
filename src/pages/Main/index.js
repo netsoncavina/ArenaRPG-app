@@ -51,13 +51,13 @@ export default function Main() {
             } else if (routeName === "Create") {
               color = focused ? "#b02b2e" : "white";
               return (
-                <Text style={{ color: color, paddingBottom: 7 }}>Create</Text>
+                <Text style={{ color: color, paddingBottom: 7 }}>Criar</Text>
               );
             } else if (routeName === "Notifications") {
               color = focused ? "#b02b2e" : "white";
               return (
                 <Text style={{ color: color, paddingBottom: 7 }}>
-                  Notifications
+                  Notificações
                 </Text>
               );
             }

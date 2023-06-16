@@ -1,6 +1,6 @@
 import axios from "axios";
 
-let baseUrl = "http://192.168.15.18:5000/posts/user/";
+let baseUrl = "https://arena-rpg.up.railway.app/posts/user/";
 
 export const getUserPosts = async (nickName) => {
   let url = baseUrl + nickName;

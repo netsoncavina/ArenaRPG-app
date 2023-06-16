@@ -8,7 +8,7 @@ const Notification = ({ type, author }) => {
 
   const getAuthorInfo = async () => {
     try {
-      fetch(`http://192.168.15.18:5000/users/user/${author}`)
+      fetch(`https://arena-rpg.up.railway.app/users/user/${author}`)
         .then((response) => response.json())
         .then((data) => {
           setImage(data[0].picture);

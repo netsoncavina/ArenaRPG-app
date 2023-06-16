@@ -61,7 +61,7 @@ const CreateScreen = ({ setPage }) => {
 
   const createPost = async () => {
     try {
-      const response = await fetch("http://192.168.15.18:5000/posts", {
+      const response = await fetch("https://arena-rpg.up.railway.app/posts", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
